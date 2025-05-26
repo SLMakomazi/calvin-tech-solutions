@@ -332,6 +332,158 @@ if (testimonialSlider) {
     });
 }
 
+// Team Slider
+const teamSlider = () => {
+    const teamMembers = document.querySelector('.team-members');
+    const prevBtn = document.querySelector('.team-prev');
+    const nextBtn = document.querySelector('.team-next');
+    const dotsContainer = document.querySelector('.team-dots');
+    
+    // Team members data (you can replace this with your actual team data)
+    const teamData = [
+        {
+            name: "Founder's Name",
+            position: "CEO & Founder",
+            bio: "A visionary leader from Kayamandi who turned his passion for technology into a thriving business that creates opportunities for others.",
+            image: "https://via.placeholder.com/300x300"
+        },
+        // Add more team members here
+        // {
+        //     name: "Team Member Name",
+        //     position: "Position",
+        //     bio: "Short bio about the team member and their role in the company.",
+        //     image: "path/to/image.jpg"
+        // }
+    ];
+
+    
+    // Initialize slider with team members
+    const initTeamSlider = () => {
+        // Clear existing content
+        teamMembers.innerHTML = '';
+        dotsContainer.innerHTML = '';
+        
+        // Create team member elements
+        teamData.forEach((member, index) => {
+            // Create team member element
+            const memberElement = document.createElement('div');
+            memberElement.className = 'team-member';
+            memberElement.innerHTML = `
+                <div class="member-image">
+                    <img src="${member.image}" alt="${member.name}">
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="member-info">
+                    <h3>${member.name}</h3>
+                    <p class="position">${member.position}</p>
+                    <p class="bio">${member.bio}</p>
+                </div>
+            `;
+            
+            // Create dot for navigation
+            const dot = document.createElement('div');
+            dot.className = 'dot';
+            dot.setAttribute('data-index', index);
+            if (index === 0) dot.classList.add('active');
+            
+            // Add click event to dot
+            dot.addEventListener('click', () => {
+                goToSlide(index);
+            });
+            
+            // Append elements
+            teamMembers.appendChild(memberElement);
+            dotsContainer.appendChild(dot);
+        });
+        
+        // Update slider state
+        updateSlider();
+    };
+    
+    // Go to specific slide
+    const goToSlide = (index) => {
+        const slides = document.querySelectorAll('.team-member');
+        const dots = document.querySelectorAll('.dot');
+        
+        // Update active slide
+        slides.forEach((slide, i) => {
+            if (i === index) {
+                slide.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+            }
+        });
+        
+        // Update active dot
+        dots.forEach((dot, i) => {
+            if (i === index) {
+                dot.classList.add('active');
+            } else {
+                dot.classList.remove('active');
+            }
+        });
+    };
+    
+    // Update slider state based on scroll position
+    const updateSlider = () => {
+        const slides = document.querySelectorAll('.team-member');
+        const dots = document.querySelectorAll('.dot');
+        
+        // Update active dot based on scroll position
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const index = Array.from(slides).indexOf(entry.target);
+                    dots.forEach((dot, i) => {
+                        if (i === index) {
+                            dot.classList.add('active');
+                        } else {
+                            dot.classList.remove('active');
+                        }
+                    });
+                }
+            });
+        }, {
+            threshold: 0.5
+        });
+        
+        // Observe each slide
+        slides.forEach(slide => observer.observe(slide));
+    };
+    
+    // Navigation event listeners
+    prevBtn.addEventListener('click', () => {
+        const slides = document.querySelectorAll('.team-member');
+        const currentIndex = Array.from(slides).findIndex(slide => {
+            const rect = slide.getBoundingClientRect();
+            return rect.left >= 0;
+        });
+        
+        const prevIndex = currentIndex <= 0 ? slides.length - 1 : currentIndex - 1;
+        goToSlide(prevIndex);
+    });
+
+    nextBtn.addEventListener('click', () => {
+        const slides = document.querySelectorAll('.team-member');
+        const currentIndex = Array.from(slides).findIndex(slide => {
+            const rect = slide.getBoundingClientRect();
+            return rect.left >= 0;
+        });
+        
+        const nextIndex = currentIndex >= slides.length - 1 ? 0 : currentIndex + 1;
+        goToSlide(nextIndex);
+    });
+    
+    // Initialize the slider
+    initTeamSlider();
+};
+
+// Initialize team slider when the DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    teamSlider();
+});
+
 // Add animation on scroll
 const animateOnScroll = () => {
     const elements = document.querySelectorAll('.feature-card, .about-content, .contact-container > div');
