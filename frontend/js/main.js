@@ -1,267 +1,217 @@
-/**
- * Calvin Tech Solutions - Main JavaScript
- * Handles core functionality including navigation, theme switching, and animations
- */
-
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize AOS (Animate On Scroll)
-    AOS.init({
-        duration: 800,
-        easing: 'ease-in-out',
-        once: true,
-        mirror: false
+    // Mobile Navigation Toggle
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+    const navItems = document.querySelectorAll('.nav-links li');
+
+    hamburger.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+        hamburger.classList.toggle('active');
     });
 
-    // Initialize theme from localStorage or system preference
-    initTheme();
-    
-    // Initialize navigation
-    initNavigation();
-    
-    // Initialize back to top button
-    initBackToTop();
-    
-    // Initialize preloader
-    initPreloader();
-    
-    // Initialize tooltips
-    initTooltips();
-    
-    // Initialize scroll animations
-    initScrollAnimations();
-    
-    // Initialize smooth scroll for anchor links
-    initSmoothScroll();
-    
-    // Initialize form validation
-    initFormValidation();
-});
-
-/**
- * Initialize theme functionality
- */
-function initTheme() {
-    const themeToggle = document.querySelector('.theme-toggle');
-    const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
-    
-    // Set initial theme
-    const savedTheme = localStorage.getItem('theme') || 
-                      (prefersDarkScheme.matches ? 'dark' : 'light');
-    document.documentElement.setAttribute('data-bs-theme', savedTheme);
-    
-    // Update toggle button icon
-    updateThemeIcon(savedTheme);
-    
-    // Toggle theme on button click
-    if (themeToggle) {
-        themeToggle.addEventListener('click', function(e) {
-            e.preventDefault();
-            const currentTheme = document.documentElement.getAttribute('data-bs-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            
-            // Set new theme
-            document.documentElement.setAttribute('data-bs-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-            
-            // Update icon
-            updateThemeIcon(newTheme);
-        });
-    }
-    
-    // Watch for system theme changes
-    prefersDarkScheme.addListener((e) => {
-        if (!localStorage.getItem('theme')) {
-            document.documentElement.setAttribute('data-bs-theme', e.matches ? 'dark' : 'light');
-        }
-    });
-}
-
-/**
- * Update theme toggle icon based on current theme
- */
-function updateThemeIcon(theme) {
-    const themeToggle = document.querySelector('.theme-toggle');
-    if (!themeToggle) return;
-    
-    const icon = themeToggle.querySelector('i');
-    if (icon) {
-        icon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
-    }
-}
-
-/**
- * Initialize navigation functionality
- */
-function initNavigation() {
-    const navbar = document.querySelector('.navbar');
-    const navbarToggler = document.querySelector('.navbar-toggler');
-    const navbarCollapse = document.querySelector('.navbar-collapse');
-    const navLinks = document.querySelectorAll('.nav-link');
-    
-    // Add scroll class to navbar on scroll
-    window.addEventListener('scroll', function() {
-        if (window.scrollY > 50) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
-        }
-    });
-    
-    // Close mobile menu when clicking a nav link
-    navLinks.forEach(link => {
-        link.addEventListener('click', function() {
-            if (navbarCollapse.classList.contains('show')) {
-                navbarToggler.click();
-            }
+    // Close mobile menu when clicking on a nav link
+    navItems.forEach(item => {
+        item.addEventListener('click', () => {
+            navLinks.classList.remove('active');
+            hamburger.classList.remove('active');
         });
     });
-}
 
-/**
- * Initialize back to top button
- */
-function initBackToTop() {
-    const backToTop = document.querySelector('.back-to-top');
-    
-    if (backToTop) {
-        window.addEventListener('scroll', function() {
-            if (window.pageYOffset > 300) {
-                backToTop.classList.add('visible');
-            } else {
-                backToTop.classList.remove('visible');
-            }
-        });
-        
-        backToTop.addEventListener('click', function(e) {
-            e.preventDefault();
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-    }
-}
-
-/**
- * Initialize preloader
- */
-function initPreloader() {
-    const preloader = document.querySelector('.preloader');
-    
-    if (preloader) {
-        // Hide preloader when page is fully loaded
-        window.addEventListener('load', function() {
-            setTimeout(function() {
-                preloader.classList.add('fade-out');
-                
-                // Remove preloader from DOM after animation completes
-                setTimeout(function() {
-                    preloader.style.display = 'none';
-                }, 500);
-            }, 500);
-        });
-    }
-}
-
-/**
- * Initialize tooltips
- */
-function initTooltips() {
-    const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-    tooltipTriggerList.map(function(tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl);
-    });
-}
-
-/**
- * Initialize scroll animations
- */
-function initScrollAnimations() {
-    const animateElements = document.querySelectorAll('.animate-on-scroll');
-    
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-            }
-        });
-    }, {
-        threshold: 0.1
-    });
-    
-    animateElements.forEach(element => {
-        observer.observe(element);
-    });
-}
-
-/**
- * Initialize smooth scroll for anchor links
- */
-function initSmoothScroll() {
+    // Smooth scrolling for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
+            e.preventDefault();
             const targetId = this.getAttribute('href');
-            
             if (targetId === '#') return;
             
             const targetElement = document.querySelector(targetId);
-            
             if (targetElement) {
-                e.preventDefault();
-                
                 window.scrollTo({
-                    top: targetElement.offsetTop - 80, // Account for fixed header
+                    top: targetElement.offsetTop - 80, // Adjust for fixed header
                     behavior: 'smooth'
                 });
-                
-                // Update URL without jumping
-                if (history.pushState) {
-                    history.pushState(null, null, targetId);
-                } else {
-                    location.hash = targetId;
-                }
             }
         });
     });
-}
 
-/**
- * Initialize form validation
- */
-function initFormValidation() {
-    // Select all forms with the 'needs-validation' class
-    const forms = document.querySelectorAll('.needs-validation');
-    
-    // Loop over them and prevent submission
-    Array.from(forms).forEach(form => {
-        form.addEventListener('submit', event => {
-            if (!form.checkValidity()) {
-                event.preventDefault();
-                event.stopPropagation();
-            }
+
+    // Form submission
+    const contactForm = document.getElementById('contact-form');
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
             
-            form.classList.add('was-validated');
-        }, false);
-    });
-}
+            // Get form data
+            const formData = new FormData(this);
+            const formObject = {};
+            formData.forEach((value, key) => {
+                formObject[key] = value;
+            });
+            
+            // Here you would typically send the form data to a server
+            console.log('Form submitted:', formObject);
+            
+            // Show success message
+            alert('Thank you for your message! We will get back to you soon.');
+            this.reset();
+        });
+    }
 
-/**
- * Debounce function to limit the rate at which a function can fire
- */
-function debounce(func, wait = 20, immediate = true) {
-    let timeout;
-    return function() {
-        const context = this, args = arguments;
-        const later = function() {
-            timeout = null;
-            if (!immediate) func.apply(context, args);
-        };
-        const callNow = immediate && !timeout;
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-        if (callNow) func.apply(context, args);
+
+    // Sample data for services (can be replaced with API call)
+    const services = [
+        {
+            icon: 'laptop-code',
+            title: 'Web Development',
+            description: 'Custom websites and web applications built with modern technologies.'
+        },
+        {
+            icon: 'mobile-alt',
+            title: 'Mobile Apps',
+            description: 'Cross-platform mobile applications for iOS and Android.'
+        },
+        {
+            icon: 'cloud',
+            title: 'Cloud Solutions',
+            description: 'Scalable cloud infrastructure and services for your business.'
+        },
+        {
+            icon: 'paint-brush',
+            title: 'UI/UX Design',
+            description: 'Beautiful and intuitive user interfaces that enhance user experience.'
+        },
+        {
+            icon: 'database',
+            title: 'Database Design',
+            description: 'Efficient and scalable database solutions for your applications.'
+        },
+        {
+            icon: 'chart-line',
+            title: 'Digital Marketing',
+            description: 'Data-driven marketing strategies to grow your online presence.'
+        }
+    ];
+
+    // Populate services section
+    const servicesGrid = document.querySelector('.services-grid');
+    if (servicesGrid) {
+        servicesGrid.innerHTML = services.map(service => `
+            <div class="feature-card">
+                <i class="fas fa-${service.icon}"></i>
+                <h3>${service.title}</h3>
+                <p>${service.description}</p>
+            </div>
+        `).join('');
+    }
+
+    // Sample news data (can be replaced with API call)
+    const news = [
+        {
+            title: 'New Office Location',
+            date: 'May 26, 2025',
+            excerpt: 'We are excited to announce the opening of our new office in the heart of the city.'
+        },
+        {
+            title: 'Partnership Announcement',
+            date: 'May 20, 2025',
+            excerpt: 'We are proud to partner with TechCorp to deliver innovative solutions to our clients.'
+        },
+        {
+            title: 'Product Launch',
+            date: 'May 15, 2025',
+            excerpt: 'Introducing our latest product that will revolutionize the industry.'
+        }
+    ];
+
+    // Populate news section
+    const newsGrid = document.querySelector('.news-grid');
+    if (newsGrid) {
+        newsGrid.innerHTML = news.map(item => `
+            <div class="feature-card">
+                <h3>${item.title}</h3>
+                <p class="date">${item.date}</p>
+                <p>${item.excerpt}</p>
+                <a href="#" class="btn btn-secondary" style="margin-top: 1rem;">Read More</a>
+            </div>
+        `).join('');
+    }
+
+    // Sample testimonials data (can be replaced with API call)
+    const testimonials = [
+        {
+            quote: "Calvin Tech Solutions transformed our online presence. Their team delivered beyond our expectations.",
+            author: "Sarah Johnson",
+            position: "CEO, TechStart Inc."
+        },
+        {
+            quote: "Professional, efficient, and delivered on time. Highly recommended for any web development needs.",
+            author: "Michael Chen",
+            position: "Marketing Director, InnovateCo"
+        },
+        {
+            quote: "Outstanding service and support. They truly understand our business needs and deliver results.",
+            author: "Emily Rodriguez",
+            position: "Founder, DesignHub"
+        }
+    ];
+
+    // Populate testimonials section
+    const testimonialSlider = document.querySelector('.testimonial-slider');
+    if (testimonialSlider) {
+        testimonialSlider.innerHTML = `
+            <div class="testimonial-slide">
+                ${testimonials.map(testimonial => `
+                    <div class="testimonial-item">
+                        <p class="quote">"${testimonial.quote}"</p>
+                        <div class="author">
+                            <h4>${testimonial.author}</h4>
+                            <p class="position">${testimonial.position}</p>
+                        </div>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+    }
+
+    // Add animation on scroll
+    const animateOnScroll = () => {
+        const elements = document.querySelectorAll('.feature-card, .about-content, .contact-container > div');
+        elements.forEach(element => {
+            const elementPosition = element.getBoundingClientRect().top;
+            const screenPosition = window.innerHeight / 1.3;
+            
+            if (elementPosition < screenPosition) {
+                element.style.opacity = '1';
+                element.style.transform = 'translateY(0)';
+            }
+        });
     };
-}
 
-// Export functions if using modules
-// export { initTheme, initNavigation, initBackToTop, initPreloader, initTooltips, initScrollAnimations, initSmoothScroll, initFormValidation, debounce };
+    // Initial animation
+    window.addEventListener('load', () => {
+        // Add animation classes after page load
+        document.querySelectorAll('.feature-card, .about-content, .contact-container > div').forEach(element => {
+            element.style.opacity = '0';
+            element.style.transform = 'translateY(20px)';
+            element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        });
+        
+        // Trigger initial animation
+        setTimeout(animateOnScroll, 100);
+    });
+
+    // Animate on scroll
+    window.addEventListener('scroll', animateOnScroll);
+});
+
+// Sticky header on scroll
+window.addEventListener('scroll', function() {
+    const header = document.querySelector('header');
+    if (window.scrollY > 50) {
+        header.style.backgroundColor = 'rgba(255, 255, 255, 0.98)';
+        header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+    } else {
+        header.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
+        header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+    }
+});
