@@ -61,34 +61,67 @@ document.addEventListener('DOMContentLoaded', function() {
     // Sample data for services (can be replaced with API call)
     const services = [
         {
-            icon: 'laptop-code',
-            title: 'Web Development',
-            description: 'Custom websites and web applications built with modern technologies.'
+            icon: 'search',
+            title: 'Search Engine Optimisation',
+            description: 'Improve your online visibility and organic traffic.',
+            bullets: [
+                'Keyword research',
+                'Link building and content creation',
+                'Local SEO',
+                'Analytics & Reports',
+                'Technical SEO'
+            ]
         },
         {
-            icon: 'mobile-alt',
-            title: 'Mobile Apps',
-            description: 'Cross-platform mobile applications for iOS and Android.'
+            icon: 'shopping-cart',
+            title: 'E-commerce Solutions',
+            description: 'Complete e-commerce solutions for your business.',
+            bullets: [
+                'Platform Solutions Set-Up',
+                'Payment Gateways',
+                'Inventory and Order Management',
+                'Shipping and Fulfilment',
+                'Marketing and Analytics',
+                'Security & Compliance'
+            ]
         },
         {
-            icon: 'cloud',
-            title: 'Cloud Solutions',
-            description: 'Scalable cloud infrastructure and services for your business.'
+            icon: 'code',
+            title: 'Software Development',
+            description: 'Custom software solutions tailored to your needs.',
+            bullets: [
+                'Web Application Design',
+                'Mobile App Development',
+                'Custom Software Development',
+                'Database Management & Design',
+                'Business Intelligence',
+                'System Integration Services'
+            ]
         },
         {
-            icon: 'paint-brush',
-            title: 'UI/UX Design',
-            description: 'Beautiful and intuitive user interfaces that enhance user experience.'
+            icon: 'briefcase',
+            title: 'Business Solutions',
+            description: 'Comprehensive business technology solutions.',
+            bullets: [
+                'Point of Sale Systems',
+                'CCTV Solutions',
+                'Data Backup & Recovery',
+                'IT Consulting',
+                'Hardware & Software Sales',
+                'Network Setup & Management',
+                'Office Setup'
+            ]
         },
         {
-            icon: 'database',
-            title: 'Database Design',
-            description: 'Efficient and scalable database solutions for your applications.'
-        },
-        {
-            icon: 'chart-line',
-            title: 'Digital Marketing',
-            description: 'Data-driven marketing strategies to grow your online presence.'
+            icon: 'cogs',
+            title: 'Other Solutions',
+            description: 'Additional services to support your business.',
+            bullets: [
+                'Technical Services',
+                'Support Services',
+                'Maintenance Services',
+                'Training Service'
+            ]
         }
     ];
 
@@ -100,6 +133,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 <i class="fas fa-${service.icon}"></i>
                 <h3>${service.title}</h3>
                 <p>${service.description}</p>
+                <ul class="service-bullets">
+                    ${service.bullets.map(bullet => `<li>${bullet}</li>`).join('')}
+                </ul>
             </div>
         `).join('');
     }
