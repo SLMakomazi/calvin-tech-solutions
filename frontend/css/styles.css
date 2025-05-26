@@ -20,6 +20,27 @@
 
 html {
     scroll-behavior: smooth;
+    scroll-padding-top: 100px; /* Space for fixed header */
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+}
+
+section {
+    scroll-margin-top: 100px; /* Space for fixed header */
+    transition: scroll-margin 0.3s ease-in-out;
+}
+
+:target {
+    animation: highlight 1.5s ease;
+}
+
+@keyframes highlight {
+    0% { background-color: rgba(37, 99, 235, 0.1); }
+    100% { background-color: transparent; }
 }
 
 body {

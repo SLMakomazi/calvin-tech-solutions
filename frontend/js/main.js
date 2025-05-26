@@ -31,10 +31,23 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         
         const targetElement = document.querySelector(targetId);
         if (targetElement) {
+            // Close mobile menu if open
+            navLinks.classList.remove('active');
+            hamburger.classList.remove('active');
+            
+            // Calculate the position to scroll to
+            const headerOffset = 80; // Height of your fixed header
+            const elementPosition = targetElement.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+            // Smooth scroll to the target
             window.scrollTo({
-                top: targetElement.offsetTop - 80, // Adjust for fixed header
+                top: offsetPosition,
                 behavior: 'smooth'
             });
+            
+            // Update URL without jumping (for deep linking)
+            history.pushState(null, null, targetId);
         }
     });
 });
