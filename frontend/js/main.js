@@ -342,7 +342,7 @@ const teamSlider = () => {
     // Team members data (you can replace this with your actual team data)
     const teamData = [
         {
-            name: "Founder's Name",
+            name: "Siseko Makomazi",
             position: "CEO & Founder",
             bio: "A visionary leader from Kayamandi who turned his passion for technology into a thriving business that creates opportunities for others.",
             image: "https://via.placeholder.com/300x300"
