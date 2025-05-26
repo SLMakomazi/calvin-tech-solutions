@@ -178,15 +178,14 @@ nav {
 
 /* Hero Section */
 .hero {
-    height: 100vh;
+    min-height: 100vh;
+    height: auto;
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    text-align: center;
-    color: white;
-    overflow: hidden;
-    margin-top: 70px;
+    padding: 100px 0;
+    z-index: 1;
 }
 
 .video-background {
@@ -340,7 +339,8 @@ nav {
 .about {
     background: linear-gradient(135deg, #f8fafc 0%, #f0f9ff 100%);
     position: relative;
-    overflow: hidden;
+    padding: 6rem 0;
+    z-index: 2;
 }
 
 .about::before {
@@ -356,6 +356,7 @@ nav {
 .about-content {
     position: relative;
     z-index: 1;
+    padding-top: 2rem;
 }
 
 .about-text {
