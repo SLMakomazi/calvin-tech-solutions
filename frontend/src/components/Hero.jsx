@@ -16,8 +16,9 @@ const Hero = ({ content }) => {
 
         <h1 className="cts-hero__title">
           <span className="cts-hero__title-highlight">{company}</span>
-          <span>{headline}</span>
         </h1>
+
+        <h3 className="cts-hero__headline">{headline}</h3>
 
         <p className="cts-hero__subtitle">{subheadline}</p>
 

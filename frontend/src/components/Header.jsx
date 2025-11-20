@@ -43,7 +43,7 @@ const Header = ({ links }) => {
           </a>
         </div>
 
-        <div className="cts-header__slot cts-header__slot--center">
+        <div className="cts-header__slot cts-header__slot--right">
           <nav className={`cts-nav ${isMenuOpen ? 'cts-nav--open' : ''}`} aria-label="Primary">
             <ul>
               {links.map((link) => (
@@ -55,9 +55,7 @@ const Header = ({ links }) => {
               ))}
             </ul>
           </nav>
-        </div>
 
-        <div className="cts-header__slot cts-header__slot--right">
           <button
             type="button"
             className={`cts-nav-toggle ${isMenuOpen ? 'cts-nav-toggle--active' : ''}`}
