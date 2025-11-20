@@ -161,6 +161,7 @@ textarea {
   border-bottom: 1px solid rgba(148, 163, 184, 0.16);
   box-shadow: 0 15px 40px rgba(15, 23, 42, 0.1);
   backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   transition: var(--transition-base);
   overflow: hidden;
 }
@@ -342,23 +343,25 @@ textarea {
   display: none;
   flex-direction: column;
   justify-content: center;
-  gap: 6px;
-  width: 44px;
-  height: 44px;
+  gap: 8px;
+  width: 46px;
+  height: 46px;
   border-radius: 50%;
-  border: 1px solid rgba(148, 163, 184, 0.3);
-  background: linear-gradient(135deg, #ffffff, rgba(241, 245, 249, 0.95));
-  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.15);
+  border: 1px solid rgba(15, 23, 42, 0.65);
+  background: linear-gradient(145deg, rgba(15, 23, 42, 0.96), rgba(30, 41, 59, 0.92));
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.35);
   cursor: pointer;
   transition: var(--transition-base);
+  position: relative;
 }
 
 .cts-nav-toggle__line {
   height: 2px;
-  width: 18px;
-  background: var(--primary-700);
+  width: 20px;
+  background: rgba(248, 250, 252, 0.92);
   border-radius: 999px;
   transition: var(--transition-base);
+  margin: 0 auto;
 }
 
 .cts-nav-toggle--active .cts-nav-toggle__line:nth-child(1) {
@@ -503,6 +506,7 @@ textarea {
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+  -webkit-text-fill-color: transparent;
   text-shadow:
     0 12px 32px rgba(37, 99, 235, 0.6),
     0 0 55px rgba(56, 189, 248, 0.75);
@@ -1027,6 +1031,8 @@ textarea {
     opacity: 0;
     pointer-events: none;
     transition: var(--transition-base);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
   }
 
   .cts-nav ul {
