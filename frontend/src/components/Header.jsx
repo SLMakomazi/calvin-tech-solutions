@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'preact/hooks'
+import { useEffect, useRef, useState } from 'preact/hooks'
 import PropTypes from 'prop-types'
 
 import logo from '../assets/cts-logo.png'
@@ -6,6 +6,7 @@ import logo from '../assets/cts-logo.png'
 const Header = ({ links }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
+  const navContainerRef = useRef(null)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -23,6 +24,21 @@ const Header = ({ links }) => {
     } else {
       document.body.classList.remove('no-scroll')
     }
+  }, [isMenuOpen])
+
+  useEffect(() => {
+    if (!isMenuOpen) {
+      return undefined
+    }
+
+    const handlePointerDown = (event) => {
+      if (!navContainerRef.current?.contains(event.target)) {
+        setIsMenuOpen(false)
+      }
+    }
+
+    document.addEventListener('pointerdown', handlePointerDown)
+    return () => document.removeEventListener('pointerdown', handlePointerDown)
   }, [isMenuOpen])
 
   const handleNavigate = () => {
@@ -43,7 +59,7 @@ const Header = ({ links }) => {
           </a>
         </div>
 
-        <div className="cts-header__slot cts-header__slot--right">
+        <div className="cts-header__slot cts-header__slot--right" ref={navContainerRef}>
           <nav className={`cts-nav ${isMenuOpen ? 'cts-nav--open' : ''}`} aria-label="Primary">
             <ul>
               {links.map((link) => (

@@ -1019,6 +1019,10 @@ textarea {
 }
 
 @media (max-width: 860px) {
+  .cts-header {
+    overflow: visible;
+  }
+
   .cts-nav {
     position: fixed;
     inset: 72px 1.5rem auto;
