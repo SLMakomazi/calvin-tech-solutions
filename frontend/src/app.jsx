@@ -3,7 +3,6 @@ import Hero from './components/Hero.jsx'
 import {
   aboutContent,
   contactInfo,
-  featureHighlights,
   heroContent,
   navigationLinks,
   newsPosts,
@@ -70,23 +69,6 @@ export function App() {
                       <li key={item}>{item}</li>
                     ))}
                   </ul>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Feature highlights */}
-        <section id="features" className="cts-section cts-section-features">
-          <div className="cts-container">
-            <div className="cts-feature-grid">
-              {featureHighlights.map((feature) => (
-                <article key={feature.title} className="cts-feature-card">
-                  <div className="cts-feature-icon">
-                    <i className={`fa-solid ${feature.icon}`} aria-hidden="true" />
-                  </div>
-                  <h3>{feature.title}</h3>
-                  <p>{feature.description}</p>
                 </article>
               ))}
             </div>

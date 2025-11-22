@@ -1,7 +1,6 @@
 export const navigationLinks = [
   { label: 'About', href: '#about' },
   { label: 'Services', href: '#services' },
-  { label: 'Features', href: '#features' },
   { label: 'Team', href: '#team' },
   { label: 'Testimonials', href: '#testimonials' },
   { label: 'News', href: '#news' },
@@ -115,24 +114,6 @@ export const services = [
       'Data science and automation',
       'Training & enablement programs',
     ],
-  },
-]
-
-export const featureHighlights = [
-  {
-    title: 'Strategic Discovery Workshops',
-    description: 'Collaborative deep dives to define product vision, success metrics, and delivery roadmap.',
-    icon: 'fa-compass-drafting',
-  },
-  {
-    title: 'Enterprise Security',
-    description: 'Secure-by-design approach with continuous monitoring, audits, and compliance alignment.',
-    icon: 'fa-lock',
-  },
-  {
-    title: 'Dedicated Delivery Pods',
-    description: 'Cross-functional squads with product, design, and engineering embedded in every engagement.',
-    icon: 'fa-diagram-project',
   },
 ]
 
