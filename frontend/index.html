@@ -1,19 +1,554 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Calvin Tech Solutions — enterprise-grade technology services, product engineering, and digital transformation." />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <title>Calvin Tech Solutions</title>
-  </head>
-  <body class="cts-body">
-    <div id="app"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calvin Tech Solutions - Engineering the Future of Technology</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Animated Background Grid -->
+    <div class="animated-grid"></div>
+    
+    <!-- Header & Navigation -->
+    <header class="navbar">
+        <nav class="nav-container">
+            <div class="logo">
+                <img src="assets/logo.png" alt="Calvin Tech Solutions" class="logo-img">
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#services" class="nav-link">Services</a></li>
+                <li><a href="#team" class="nav-link">Team</a></li>
+                <li><a href="#testimonials" class="nav-link">Testimonials</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="video-background">
+            <video autoplay muted loop id="hero-video">
+                <source src="assets/backgroundVideo.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="video-overlay"></div>
+            <div class="scanlines"></div>
+            <div class="glow-lines"></div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title">
+                    <span class="title-line">Engineering the</span>
+                    <span class="title-line highlight">Future of Technology</span>
+                </h1>
+                <p class="hero-subtitle">
+                    <span class="typing-text">Cloud • DevOps • AI • Software Solutions</span>
+                </p>
+                <div class="cta-buttons">
+                    <a href="#services" class="btn btn-primary">Explore Our Solutions</a>
+                    <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">About Calvin Tech Solutions</h2>
+                <p class="section-subtitle">Pioneering Technology Excellence in South Africa</p>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <p class="lead">
+                        Calvin Tech Solutions is a proudly 100% Black-owned, B-BBEE Level 1 technology company founded by a passionate youth from Kayamandi, Stellenbosch. 
+                        Our journey began with a vision to bridge the digital divide and create opportunities through technology.
+                    </p>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-number" data-target="150">0</div>
+                            <div class="stat-label">Projects Delivered</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" data-target="50">0</div>
+                            <div class="stat-label">Happy Clients</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" data-target="1000">0</div>
+                            <div class="stat-label">Hours of Innovation</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" data-target="15">0</div>
+                            <div class="stat-label">Team Members</div>
+                        </div>
+                    </div>
+                    
+                    <div class="values">
+                        <h3>Our Core Values</h3>
+                        <div class="values-grid">
+                            <div class="value-card">
+                                <div class="value-icon">
+                                    <i class="fas fa-graduation-cap"></i>
+                                </div>
+                                <h4>Education</h4>
+                                <p>Committed to continuous learning and knowledge sharing</p>
+                            </div>
+                            <div class="value-card">
+                                <div class="value-icon">
+                                    <i class="fas fa-hands-helping"></i>
+                                </div>
+                                <h4>Community</h4>
+                                <p>Giving back and empowering our local community</p>
+                            </div>
+                            <div class="value-card">
+                                <div class="value-icon">
+                                    <i class="fas fa-lightbulb"></i>
+                                </div>
+                                <h4>Innovation</h4>
+                                <p>Delivering cutting-edge tech solutions</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section id="why-choose-us" class="why-choose-us">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Why Choose Calvin Tech Solutions</h2>
+                <p class="section-subtitle">We combine technical expertise with a passion for making a difference</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-certificate"></i>
+                    </div>
+                    <h3>B-BBEE Level 1</h3>
+                    <p>Supporting transformation and economic inclusion in South Africa with our Level 1 certification</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <h3>Youth Development</h3>
+                    <p>Providing internship opportunities to the next generation of tech leaders and innovators</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>Technical Excellence</h3>
+                    <p>Our team brings years of combined experience in cutting-edge technology solutions</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3>Innovation First</h3>
+                    <p>We leverage the latest technologies to deliver future-ready solutions for your business</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Security Focused</h3>
+                    <p>Implementing robust security measures to protect your digital assets and data</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3>24/7 Support</h3>
+                    <p>Round-the-clock technical support to ensure your business runs smoothly</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Our Services</h2>
+                <p class="section-subtitle">Cutting-edge technology solutions for your business</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3>Web Development</h3>
+                    <p>Custom web applications built with modern frameworks and best practices for optimal performance.</p>
+                    <div class="service-tech">
+                        <span>React</span>
+                        <span>Node.js</span>
+                        <span>Python</span>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Mobile Apps</h3>
+                    <p>Native and cross-platform mobile applications that deliver exceptional user experiences.</p>
+                    <div class="service-tech">
+                        <span>React Native</span>
+                        <span>Flutter</span>
+                        <span>iOS</span>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-cloud"></i>
+                    </div>
+                    <h3>Cloud Solutions</h3>
+                    <p>Scalable cloud infrastructure and migration services to power your digital transformation.</p>
+                    <div class="service-tech">
+                        <span>AWS</span>
+                        <span>Azure</span>
+                        <span>Google Cloud</span>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <h3>UI/UX Design</h3>
+                    <p>User-centered design solutions that combine aesthetics with functionality for maximum impact.</p>
+                    <div class="service-tech">
+                        <span>Figma</span>
+                        <span>Adobe XD</span>
+                        <span>Prototyping</span>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>AI & Machine Learning</h3>
+                    <p>Intelligent solutions that leverage artificial intelligence to automate and optimize your processes.</p>
+                    <div class="service-tech">
+                        <span>TensorFlow</span>
+                        <span>PyTorch</span>
+                        <span>NLP</span>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-server"></i>
+                    </div>
+                    <h3>DevOps & Infrastructure</h3>
+                    <p>Streamlined development operations and robust infrastructure management for continuous delivery.</p>
+                    <div class="service-tech">
+                        <span>Docker</span>
+                        <span>Kubernetes</span>
+                        <span>CI/CD</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+<!-- Meet the Team -->
+<section id="team" class="team">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">Meet Our Team</h2>
+            <p class="section-subtitle">The passionate individuals behind our success</p>
+        </div>
+        <div class="team-slider">
+            <div class="team-members">
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="assets/team/siseko.jpg.jpg" alt="Siseko Makomazi">
+                        <div class="member-overlay">
+                            <div class="social-links">
+                                <a href="#"><i class="fab fa-linkedin"></i></a>
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                <a href="#"><i class="fab fa-github"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="member-info">
+                        <h3>Siseko Makomazi</h3>
+                        <p class="position">CEO & Founder</p>
+                        <p class="bio">A visionary leader from Kayamandi who turned his passion for technology into a thriving business that creates opportunities for others.</p>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="assets/logo.png" alt="Team Member" style="opacity: 0.7;">
+                        <div class="member-overlay">
+                            <div class="social-links">
+                                <a href="#"><i class="fab fa-linkedin"></i></a>
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                <a href="#"><i class="fab fa-github"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="member-info">
+                        <h3>Alex Johnson</h3>
+                        <p class="position">CTO</p>
+                        <p class="bio">Technical architect with expertise in cloud solutions and scalable systems design.</p>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="assets/logo.png" alt="Team Member" style="opacity: 0.7;">
+                        <div class="member-overlay">
+                            <div class="social-links">
+                                <a href="#"><i class="fab fa-linkedin"></i></a>
+                                <a href="#"><i class="fab fa-dribbble"></i></a>
+                                <a href="#"><i class="fab fa-behance"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="member-info">
+                        <h3>Sarah Chen</h3>
+                        <p class="position">Lead Designer</p>
+                        <p class="bio">Creative mind behind our stunning user interfaces and experiences.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="team-controls">
+                <button class="team-prev"><i class="fas fa-chevron-left"></i></button>
+                <div class="team-dots"></div>
+                <button class="team-next"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </div>
+</section>
+    <!-- Testimonials Section -->
+<section id="testimonials" class="testimonials">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">What Our Clients Say</h2>
+            <p class="section-subtitle">Trusted by leading companies for their technology needs</p>
+        </div>
+        <div class="testimonial-slider">
+            <div class="testimonial-track">
+                <div class="testimonial-card">
+                    <div class="quote-icon">
+                        <i class="fas fa-quote-left"></i>
+                    </div>
+                    <p class="testimonial-text">"Calvin Tech Solutions transformed our digital presence with their innovative web solutions. Their team's technical expertise and professional approach exceeded our expectations."</p>
+                    <div class="testimonial-author">
+                        <div class="author-info">
+                            <h4>Michael Roberts</h4>
+                            <p class="author-title">CEO, TechStart Inc.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="quote-icon">
+                        <i class="fas fa-quote-left"></i>
+                    </div>
+                    <p class="testimonial-text">"Their cloud migration services were seamless and efficient. We've seen significant improvements in performance and cost savings since partnering with them."</p>
+                    <div class="testimonial-author">
+                        <div class="author-info">
+                            <h4>Lisa Thompson</h4>
+                            <p class="author-title">CTO, DataFlow Systems</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="quote-icon">
+                        <i class="fas fa-quote-left"></i>
+                    </div>
+                    <p class="testimonial-text">"The mobile app they developed for us has revolutionized how we engage with our customers. Truly a game-changer for our business!"</p>
+                    <div class="testimonial-author">
+                        <div class="author-info">
+                            <h4>James Wilson</h4>
+                            <p class="author-title">Director, InnovateCo</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-controls">
+                <button class="testimonial-prev"><i class="fas fa-chevron-left"></i></button>
+                <button class="testimonial-next"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- Contact Section -->
+<section id="contact" class="contact">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">Get In Touch</h2>
+            <p class="section-subtitle">Let's discuss how we can transform your business with technology</p>
+        </div>
+        <div class="contact-container">
+            <div class="contact-info">
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="info-content">
+                        <h4>Visit Our Office</h4>
+                        <p>291 Sijentu Cl, Kayamandi, Stellenbosch, 7600</p>
+                    </div>
+                </div>
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <div class="info-content">
+                        <h4>Call Us</h4>
+                        <p>084 606 9066</p>
+                    </div>
+                </div>
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="info-content">
+                        <h4>Email Us</h4>
+                        <p>info@calvintech.com</p>
+                    </div>
+                </div>
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="info-content">
+                        <h4>Business Hours</h4>
+                        <p>Monday - Friday: 9:00 AM - 6:00 PM</p>
+                        <p>Saturday: 9:00 AM - 1:00 PM</p>
+                    </div>
+                </div>
+            </div>
+            <form id="contact-form" class="contact-form">
+                <div class="form-group">
+                    <input type="text" id="name" name="name" placeholder=" " required>
+                    <label for="name">Your Name</label>
+                </div>
+                <div class="form-group">
+                    <input type="email" id="email" name="email" placeholder=" " required>
+                    <label for="email">Your Email</label>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="subject" name="subject" placeholder=" " required>
+                    <label for="subject">Subject</label>
+                </div>
+                <div class="form-group">
+                    <textarea id="message" name="message" rows="5" placeholder=" " required></textarea>
+                    <label for="message">Your Message</label>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    <span class="btn-text">Send Message</span>
+                    <div class="btn-glow"></div>
+                </button>
+            </form>
+        </div>
+    </div>
+</section>
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <img src="assets/logo.png" alt="Calvin Tech Solutions" class="footer-logo">
+                <p class="footer-tagline">Built for the Future</p>
+                <p class="footer-description">Innovative technology solutions for your business needs. Your Vision, Our Innovation.</p>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#team">Team</a></li>
+                    <li><a href="#testimonials">Testimonials</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-services">
+                <h4>Our Services</h4>
+                <ul>
+                    <li><a href="#services">Web Development</a></li>
+                    <li><a href="#services">Mobile Apps</a></li>
+                    <li><a href="#services">Cloud Solutions</a></li>
+                    <li><a href="#services">UI/UX Design</a></li>
+                    <li><a href="#services">AI & Machine Learning</a></li>
+                    <li><a href="#services">DevOps & Infrastructure</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4>Contact Info</h4>
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <p>291 Sijentu Cl, Kayamandi, Stellenbosch, 7600</p>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <p>084 606 9066</p>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <p>info@calvintech.com</p>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="footer-divider"></div>
+            <p>&copy; 2025 Calvin Tech Solutions. All rights reserved. | B-BBEE Level 1 | 100% Black-Owned</p>
+        </div>
+    </div>
+</footer>
+
+<!-- Mobile Menu Overlay -->
+<div class="mobile-menu-overlay">
+    <div class="mobile-menu-content">
+        <div class="mobile-menu-header">
+            <img src="assets/logo.png" alt="Calvin Tech Solutions" class="mobile-logo">
+            <button class="mobile-menu-close">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <ul class="mobile-nav-links">
+            <li><a href="#home" class="mobile-nav-link">Home</a></li>
+            <li><a href="#about" class="mobile-nav-link">About</a></li>
+            <li><a href="#services" class="mobile-nav-link">Services</a></li>
+            <li><a href="#team" class="mobile-nav-link">Team</a></li>
+            <li><a href="#testimonials" class="mobile-nav-link">Testimonials</a></li>
+            <li><a href="#contact" class="mobile-nav-link">Contact</a></li>
+        </ul>
+        <div class="mobile-social-links">
+            <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+        </div>
+    </div>
+</div>
+
+    <script src="js/main.js"></script>
+</body>
 </html>

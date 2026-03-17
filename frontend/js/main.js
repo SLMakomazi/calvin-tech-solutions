@@ -1,56 +1,547 @@
-// Hero section - Static slogan with fade-in effect
+// ===================================
+// FUTURISTIC IT COMPANY WEBSITE JAVASCRIPT
+// ===================================
+
 document.addEventListener('DOMContentLoaded', function() {
-    // No JavaScript needed for the static slogan
-    // The CSS animations handle the fade-in effects
+    // Initialize all functionality
+    initMobileMenu();
+    initScrollAnimations();
+    initHeroAnimations();
+    initTeamSlider();
+    initTestimonialSlider();
+    initContactForm();
+    initStatsCounters();
+    initNavbarScroll();
+    initSmoothScrolling();
+    initParallaxEffects();
 });
 
-// Mobile Navigation Toggle
-const hamburger = document.querySelector('.hamburger');
-const navLinks = document.querySelector('.nav-links');
-const navItems = document.querySelectorAll('.nav-links li');
+// ===================================
+// MOBILE MENU FUNCTIONALITY
+// ===================================
+function initMobileMenu() {
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+    const mobileMenuOverlay = document.querySelector('.mobile-menu-overlay');
+    const mobileMenuClose = document.querySelector('.mobile-menu-close');
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
 
-hamburger.addEventListener('click', () => {
-    navLinks.classList.toggle('active');
-    hamburger.classList.toggle('active');
-});
+    if (!hamburger) {
+        console.error('Hamburger menu not found!');
+        return;
+    }
 
-// Close mobile menu when clicking on a nav link
-navItems.forEach(item => {
-    item.addEventListener('click', () => {
-        navLinks.classList.remove('active');
-        hamburger.classList.remove('active');
+    if (!mobileMenuOverlay) {
+        console.error('Mobile menu overlay not found!');
+        return;
+    }
+
+    hamburger.addEventListener('click', () => {
+        mobileMenuOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
     });
-});
 
-// Smooth scrolling for anchor links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        const targetId = this.getAttribute('href');
-        if (targetId === '#') return;
+    if (mobileMenuClose) {
+        mobileMenuClose.addEventListener('click', () => {
+            mobileMenuOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+    }
+
+    mobileNavLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            mobileMenuOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+    });
+
+    // Close menu on overlay click
+    if (mobileMenuOverlay) {
+        mobileMenuOverlay.addEventListener('click', (e) => {
+            if (e.target === mobileMenuOverlay) {
+                mobileMenuOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+    }
+}
+
+// ===================================
+// NAVBAR SCROLL BEHAVIOR
+// ===================================
+function initNavbarScroll() {
+    const navbar = document.querySelector('.navbar');
+    let lastScrollY = window.scrollY;
+
+    window.addEventListener('scroll', () => {
+        const currentScrollY = window.scrollY;
         
-        const targetElement = document.querySelector(targetId);
-        if (targetElement) {
-            // Close mobile menu if open
-            navLinks.classList.remove('active');
-            hamburger.classList.remove('active');
-            
-            // Calculate the position to scroll to
-            const headerOffset = 80; // Height of your fixed header
-            const elementPosition = targetElement.getBoundingClientRect().top;
-            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+        if (currentScrollY > 100) {
+            navbar.style.background = 'rgba(10, 15, 28, 0.95)';
+            navbar.style.backdropFilter = 'blur(20px)';
+            navbar.style.boxShadow = '0 4px 30px rgba(0, 0, 0, 0.3)';
+        } else {
+            navbar.style.background = 'rgba(255, 255, 255, 0.05)';
+            navbar.style.backdropFilter = 'blur(10px)';
+            navbar.style.boxShadow = 'none';
+        }
 
-            // Smooth scroll to the target
-            window.scrollTo({
-                top: offsetPosition,
-                behavior: 'smooth'
-            });
+        lastScrollY = currentScrollY;
+    });
+}
+
+// ===================================
+// SMOOTH SCROLLING
+// ===================================
+function initSmoothScrolling() {
+    const links = document.querySelectorAll('a[href^="#"]');
+    
+    links.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
             
-            // Update URL without jumping (for deep linking)
-            history.pushState(null, null, targetId);
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                const headerOffset = 80;
+                const elementPosition = targetElement.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+                
+                history.pushState(null, null, targetId);
+            }
+        });
+    });
+}
+
+// ===================================
+// HERO SECTION ANIMATIONS
+// ===================================
+function initHeroAnimations() {
+    const titleLines = document.querySelectorAll('.title-line');
+    const subtitle = document.querySelector('.hero-subtitle');
+    const ctaButtons = document.querySelector('.cta-buttons');
+    
+    // Enhanced typing effect for subtitle
+    const typingText = document.querySelector('.typing-text');
+    if (typingText) {
+        const text = typingText.textContent;
+        typingText.textContent = '';
+        let index = 0;
+        
+        function typeWriter() {
+            if (index < text.length) {
+                typingText.textContent += text.charAt(index);
+                index++;
+                setTimeout(typeWriter, 100);
+            }
+        }
+        
+        setTimeout(typeWriter, 1500);
+    }
+    
+    // Add glow pulse effect to highlight
+    const highlight = document.querySelector('.title-line.highlight');
+    if (highlight) {
+        setInterval(() => {
+            highlight.style.textShadow = '0 0 30px rgba(31, 111, 235, 0.8)';
+            setTimeout(() => {
+                highlight.style.textShadow = '0 0 50px rgba(31, 111, 235, 1)';
+            }, 1000);
+        }, 2000);
+    }
+}
+
+// ===================================
+// PARALLAX EFFECTS
+// ===================================
+function initParallaxEffects() {
+    const heroContent = document.querySelector('.hero-content');
+    const glowLines = document.querySelector('.glow-lines');
+    
+    window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        const parallaxSpeed = 0.5;
+        
+        if (heroContent) {
+            heroContent.style.transform = `translateY(${scrolled * parallaxSpeed}px)`;
+        }
+        
+        if (glowLines) {
+            glowLines.style.transform = `translateY(${scrolled * 0.3}px)`;
         }
     });
+}
+
+// ===================================
+// SCROLL REVEAL ANIMATIONS
+// ===================================
+function initScrollAnimations() {
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealLeftElements = document.querySelectorAll('.reveal-left');
+    const revealRightElements = document.querySelectorAll('.reveal-right');
+    const revealScaleElements = document.querySelectorAll('.reveal-scale');
+    
+    // Add reveal classes to elements
+    const sections = document.querySelectorAll('section');
+    sections.forEach(section => {
+        const sectionHeader = section.querySelector('.section-header');
+        const cards = section.querySelectorAll('.service-card, .feature-card, .value-card, .stat-card, .team-member, .testimonial-card, .info-card');
+        
+        if (sectionHeader) sectionHeader.classList.add('reveal');
+        cards.forEach((card, index) => {
+            card.classList.add('reveal-scale');
+            card.style.transitionDelay = `${index * 0.1}s`;
+        });
+    });
+    
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+            }
+        });
+    }, observerOptions);
+    
+    // Observe all reveal elements
+    document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach(el => {
+        observer.observe(el);
+    });
+}
+
+// ===================================
+// TEAM SLIDER
+// ===================================
+function initTeamSlider() {
+    const teamMembers = document.querySelector('.team-members');
+    const prevBtn = document.querySelector('.team-prev');
+    const nextBtn = document.querySelector('.team-next');
+    const dotsContainer = document.querySelector('.team-dots');
+    
+    if (!teamMembers || !prevBtn || !nextBtn) return;
+    
+    let currentIndex = 0;
+    const members = document.querySelectorAll('.team-member');
+    const totalMembers = members.length;
+    
+    // Create dots
+    for (let i = 0; i < totalMembers; i++) {
+        const dot = document.createElement('div');
+        dot.classList.add('dot');
+        if (i === 0) dot.classList.add('active');
+        dot.addEventListener('click', () => goToSlide(i));
+        dotsContainer.appendChild(dot);
+    }
+    
+    const dots = document.querySelectorAll('.team-dots .dot');
+    
+    function goToSlide(index) {
+        currentIndex = index;
+        updateSlider();
+    }
+    
+    function updateSlider() {
+        const offset = -currentIndex * 100;
+        teamMembers.style.transform = `translateX(${offset}%)`;
+        
+        dots.forEach((dot, index) => {
+            dot.classList.toggle('active', index === currentIndex);
+        });
+    }
+    
+    function nextSlide() {
+        currentIndex = (currentIndex + 1) % totalMembers;
+        updateSlider();
+    }
+    
+    function prevSlide() {
+        currentIndex = (currentIndex - 1 + totalMembers) % totalMembers;
+        updateSlider();
+    }
+    
+    prevBtn.addEventListener('click', prevSlide);
+    nextBtn.addEventListener('click', nextSlide);
+    
+    // Auto-slide
+    setInterval(nextSlide, 5000);
+}
+
+// ===================================
+// TESTIMONIAL SLIDER
+// ===================================
+function initTestimonialSlider() {
+    const track = document.querySelector('.testimonial-track');
+    const prevBtn = document.querySelector('.testimonial-prev');
+    const nextBtn = document.querySelector('.testimonial-next');
+    
+    if (!track || !prevBtn || !nextBtn) return;
+    
+    let currentIndex = 0;
+    const cards = document.querySelectorAll('.testimonial-card');
+    const totalCards = cards.length;
+    
+    function goToSlide(index) {
+        currentIndex = index;
+        const offset = -currentIndex * 100;
+        track.style.transform = `translateX(${offset}%)`;
+    }
+    
+    function nextSlide() {
+        currentIndex = (currentIndex + 1) % totalCards;
+        goToSlide(currentIndex);
+    }
+    
+    function prevSlide() {
+        currentIndex = (currentIndex - 1 + totalCards) % totalCards;
+        goToSlide(currentIndex);
+    }
+    
+    prevBtn.addEventListener('click', prevSlide);
+    nextBtn.addEventListener('click', nextSlide);
+    
+    // Auto-slide
+    setInterval(nextSlide, 6000);
+}
+
+// ===================================
+// STATS COUNTERS
+// ===================================
+function initStatsCounters() {
+    const statNumbers = document.querySelectorAll('.stat-number');
+    
+    const observerOptions = {
+        threshold: 0.5
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !entry.target.classList.contains('counted')) {
+                const target = parseInt(entry.target.dataset.target);
+                const duration = 2000;
+                const increment = target / (duration / 16);
+                let current = 0;
+                
+                const updateCounter = () => {
+                    current += increment;
+                    if (current < target) {
+                        entry.target.textContent = Math.ceil(current);
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        entry.target.textContent = target;
+                        entry.target.classList.add('counted');
+                    }
+                };
+                
+                updateCounter();
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+    
+    statNumbers.forEach(stat => observer.observe(stat));
+}
+
+// ===================================
+// CONTACT FORM
+// ===================================
+function initContactForm() {
+    const form = document.getElementById('contact-form');
+    
+    if (!form) return;
+    
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Get form data
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData);
+        
+        // Add loading state to button
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const originalText = submitBtn.querySelector('.btn-text').textContent;
+        
+        submitBtn.classList.add('loading');
+        submitBtn.querySelector('.btn-text').textContent = 'Sending...';
+        submitBtn.disabled = true;
+        
+        // Simulate form submission (replace with actual backend call)
+        setTimeout(() => {
+            // Reset form
+            form.reset();
+            
+            // Reset button
+            submitBtn.classList.remove('loading');
+            submitBtn.querySelector('.btn-text').textContent = originalText;
+            submitBtn.disabled = false;
+            
+            // Show success message
+            showNotification('Message sent successfully! We\'ll get back to you soon.', 'success');
+        }, 2000);
+    });
+    
+    // Add floating label animations
+    const formGroups = form.querySelectorAll('.form-group');
+    formGroups.forEach(group => {
+        const input = group.querySelector('input, textarea');
+        const label = group.querySelector('label');
+        
+        input.addEventListener('focus', () => {
+            label.style.color = '#00AEEF';
+        });
+        
+        input.addEventListener('blur', () => {
+            if (!input.value) {
+                label.style.color = '';
+            }
+        });
+    });
+}
+
+// ===================================
+// NOTIFICATION SYSTEM
+// ===================================
+function showNotification(message, type = 'info') {
+    const notification = document.createElement('div');
+    notification.className = `notification ${type}`;
+    notification.textContent = message;
+    
+    // Style the notification
+    Object.assign(notification.style, {
+        position: 'fixed',
+        top: '100px',
+        right: '20px',
+        background: type === 'success' ? '#10b981' : '#00AEEF',
+        color: 'white',
+        padding: '15px 20px',
+        borderRadius: '10px',
+        boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3)',
+        zIndex: '10000',
+        transform: 'translateX(100%)',
+        transition: 'transform 0.3s ease',
+        maxWidth: '300px'
+    });
+    
+    document.body.appendChild(notification);
+    
+    // Animate in
+    setTimeout(() => {
+        notification.style.transform = 'translateX(0)';
+    }, 100);
+    
+    // Remove after 3 seconds
+    setTimeout(() => {
+        notification.style.transform = 'translateX(100%)';
+        setTimeout(() => {
+            document.body.removeChild(notification);
+        }, 300);
+    }, 3000);
+}
+
+// ===================================
+// MOUSE MOVE EFFECTS
+// ===================================
+document.addEventListener('mousemove', (e) => {
+    const cards = document.querySelectorAll('.service-card, .feature-card');
+    
+    cards.forEach(card => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        
+        const rotateX = (y - centerY) / 10;
+        const rotateY = (centerX - x) / 10;
+        
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(10px)`;
+    });
 });
+
+// ===================================
+// RESET CARD TRANSFORMS ON MOUSE LEAVE
+// ===================================
+document.addEventListener('mouseleave', () => {
+    const cards = document.querySelectorAll('.service-card, .feature-card');
+    cards.forEach(card => {
+        card.style.transform = '';
+    });
+});
+
+// ===================================
+// PERFORMANCE OPTIMIZATION
+// ===================================
+let ticking = false;
+function requestTick(callback) {
+    if (!ticking) {
+        requestAnimationFrame(callback);
+        ticking = true;
+        setTimeout(() => { ticking = false; }, 100);
+    }
+}
+
+// ===================================
+// LAZY LOADING FOR IMAGES
+// ===================================
+function initLazyLoading() {
+    const images = document.querySelectorAll('img[data-src]');
+    
+    const imageObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                img.src = img.dataset.src;
+                img.classList.remove('lazy');
+                imageObserver.unobserve(img);
+            }
+        });
+    });
+    
+    images.forEach(img => imageObserver.observe(img));
+}
+
+// Initialize lazy loading
+initLazyLoading();
+
+// ===================================
+// PRELOADER
+// ===================================
+window.addEventListener('load', () => {
+    const preloader = document.querySelector('.preloader');
+    if (preloader) {
+        setTimeout(() => {
+            preloader.style.opacity = '0';
+            setTimeout(() => {
+                preloader.style.display = 'none';
+            }, 500);
+        }, 1000);
+    }
+});
+
+// ===================================
+// ERROR HANDLING
+// ===================================
+window.addEventListener('error', (e) => {
+    console.error('JavaScript Error:', e.error);
+});
+
+// ===================================
+// CONSOLE BRANDING
+// ===================================
+console.log('%c Calvin Tech Solutions', 'font-size: 20px; font-weight: bold; color: #00AEEF;');
+console.log('%cEngineering the Future of Technology', 'font-size: 14px; color: #1F6FEB;');
+console.log('%cBuilt with passion and innovation in South Africa ', 'font-size: 12px; color: #A0A0A0;');
 
 // Form submission
 const contactForm = document.getElementById('contact-form');
@@ -345,7 +836,7 @@ const teamSlider = () => {
             name: "Siseko Makomazi",
             position: "CEO & Founder",
             bio: "A visionary leader from Kayamandi who turned his passion for technology into a thriving business that creates opportunities for others.",
-            image: "assets/MeProfessionalPicture.jpg"
+            image: "assets/team/siseko.jpg.jpg"
         },
         // Add more team members here
         // {
