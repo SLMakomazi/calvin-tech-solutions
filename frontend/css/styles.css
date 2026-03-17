@@ -1109,13 +1109,19 @@ footer {
 
 .footer-content {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: 1fr 1fr 1fr;
     gap: var(--spacing-xl);
     margin-bottom: var(--spacing-lg);
+    align-items: start;
 }
 
 .footer-brand {
-    text-align: center;
+    text-align: left;
+}
+
+.footer-links,
+.footer-services {
+    text-align: left;
 }
 
 .footer-logo {
@@ -1374,8 +1380,10 @@ footer {
         text-align: center;
     }
     
-    .footer-contact {
-        text-align: left;
+    .footer-brand,
+    .footer-links,
+    .footer-services {
+        text-align: center;
     }
     
     .services-grid,
