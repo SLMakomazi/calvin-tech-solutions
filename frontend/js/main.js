@@ -352,10 +352,17 @@ function initTestimonialSlider() {
     const cards = document.querySelectorAll('.testimonial-card');
     const totalCards = cards.length;
     
+    // Set first card as active initially
+    cards[0].classList.add('active');
+    
     function goToSlide(index) {
+        // Remove active class from all cards
+        cards.forEach(card => card.classList.remove('active'));
+        
         currentIndex = index;
-        const offset = -currentIndex * 100;
-        track.style.transform = `translateX(${offset}%)`;
+        
+        // Add active class to current card
+        cards[currentIndex].classList.add('active');
     }
     
     function nextSlide() {
@@ -371,7 +378,7 @@ function initTestimonialSlider() {
     prevBtn.addEventListener('click', prevSlide);
     nextBtn.addEventListener('click', nextSlide);
     
-    // Auto-slide
+    // Auto-advance every 6 seconds
     setInterval(nextSlide, 6000);
 }
 
@@ -753,136 +760,6 @@ if (newsGrid) {
     `).join('');
 }
 
-// Sample testimonials data (can be replaced with API call)
-const testimonials = [
-    {
-        quote: "Calvin Tech Solutions transformed our online presence. Their team delivered beyond our expectations with their SEO expertise.",
-        name: "Sarah Johnson",
-        position: "CEO, TechStart Inc.",
-        image: "https://randomuser.me/api/portraits/women/43.jpg"
-    },
-    {
-        quote: "Professional, efficient, and delivered on time. Their e-commerce solution helped us increase our online sales by 150%.",
-        name: "Michael Chen",
-        position: "Marketing Director, InnovateCo",
-        image: "https://randomuser.me/api/portraits/men/32.jpg"
-    },
-    {
-        quote: "Outstanding service and support. Their custom software solution streamlined our business operations significantly.",
-        name: "Emily Rodriguez",
-        position: "Founder, DesignHub",
-        image: "https://randomuser.me/api/portraits/women/65.jpg"
-    },
-    {
-        quote: "The business solutions provided by Calvin Tech have been game-changing for our retail operations. Highly recommended!",
-        name: "David Kim",
-        position: "Operations Manager, RetailPro",
-        image: "https://randomuser.me/api/portraits/men/75.jpg"
-    }
-];
-
-// Populate testimonials section with slider
-const testimonialSlider = document.querySelector('.testimonial-slider');
-if (testimonialSlider) {
-    // Create slider container
-    testimonialSlider.innerHTML = `
-        <div class="testimonial-slide active">
-            ${testimonials[0].quote}
-            <div class="testimonial-author">
-                <img src="${testimonials[0].image}" alt="${testimonials[0].name}" class="testimonial-img">
-                <div class="author-info">
-                    <h4>${testimonials[0].name}</h4>
-                    <p class="position">${testimonials[0].position}</p>
-                </div>
-            </div>
-        </div>
-        <div class="testimonial-controls">
-            <button class="testimonial-prev"><i class="fas fa-chevron-left"></i></button>
-            <div class="testimonial-dots">
-                ${testimonials.map((_, index) => 
-                    `<span class="dot ${index === 0 ? 'active' : ''}" data-index="${index}"></span>`).join('')}
-            </div>
-            <button class="testimonial-next"><i class="fas fa-chevron-right"></i></button>
-        </div>
-    `;
-
-    // Add event listeners for slider controls
-    let currentSlide = 0;
-    const slides = []; // Will be populated with testimonial content
-    
-    // Create slides array with testimonial content
-    testimonials.forEach((testimonial, index) => {
-        if (index > 0) { // Skip first one as it's already in the HTML
-            const slide = document.createElement('div');
-            slide.className = 'testimonial-slide';
-            slide.innerHTML = `
-                ${testimonial.quote}
-                <div class="testimonial-author">
-                    <img src="${testimonial.image}" alt="${testimonial.name}" class="testimonial-img">
-                    <div class="author-info">
-                        <h4>${testimonial.name}</h4>
-                        <p class="position">${testimonial.position}</p>
-                    </div>
-                </div>
-            `;
-            testimonialSlider.insertBefore(slide, testimonialSlider.querySelector('.testimonial-controls'));
-        }
-        slides.push(testimonialSlider.querySelectorAll('.testimonial-slide')[index]);
-    });
-
-    // Function to update active slide
-    function updateSlide(index) {
-        // Update active class on slides
-        slides.forEach((slide, i) => {
-            slide.classList.toggle('active', i === index);
-        });
-        
-        // Update active dot
-        const dots = document.querySelectorAll('.dot');
-        dots.forEach((dot, i) => {
-            dot.classList.toggle('active', i === index);
-        });
-        
-        currentSlide = index;
-    }
-
-    // Next/previous controls
-    document.querySelector('.testimonial-next')?.addEventListener('click', () => {
-        const nextSlide = (currentSlide + 1) % slides.length;
-        updateSlide(nextSlide);
-    });
-
-    document.querySelector('.testimonial-prev')?.addEventListener('click', () => {
-        const prevSlide = (currentSlide - 1 + slides.length) % slides.length;
-        updateSlide(prevSlide);
-    });
-
-    // Dot navigation
-    document.querySelectorAll('.dot').forEach(dot => {
-        dot.addEventListener('click', () => {
-            const slideIndex = parseInt(dot.getAttribute('data-index'));
-            updateSlide(slideIndex);
-        });
-    });
-
-    // Auto-advance slides every 5 seconds
-    let slideInterval = setInterval(() => {
-        const nextSlide = (currentSlide + 1) % slides.length;
-        updateSlide(nextSlide);
-    }, 5000);
-
-    // Pause auto-advancement on hover
-    testimonialSlider.addEventListener('mouseenter', () => {
-        clearInterval(slideInterval);
-    });
-
-    testimonialSlider.addEventListener('mouseleave', () => {
-        slideInterval = setInterval(() => {
-            const nextSlide = (currentSlide + 1) % slides.length;
-            updateSlide(nextSlide);
-        }, 5000);
-    });
-}
 
 // Team Slider
 const teamSlider = () => {
