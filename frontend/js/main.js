@@ -348,38 +348,70 @@ function initTestimonialSlider() {
     
     if (!track || !prevBtn || !nextBtn) return;
     
-    let currentIndex = 0;
     const cards = document.querySelectorAll('.testimonial-card');
     const totalCards = cards.length;
+    
+    if (totalCards === 0) return;
+    
+    let currentIndex = 0;
     
     // Set first card as active initially
     cards[0].classList.add('active');
     
     function goToSlide(index) {
-        // Remove active class from all cards
-        cards.forEach(card => card.classList.remove('active'));
-        
         currentIndex = index;
+        updateSlider();
+    }
+    
+    function updateSlider() {
+        // Update active state for all cards
+        cards.forEach((card, index) => {
+            card.classList.toggle('active', index === currentIndex);
+        });
         
-        // Add active class to current card
-        cards[currentIndex].classList.add('active');
+        // Scroll to center the active card
+        if (cards[currentIndex]) {
+            const activeCard = cards[currentIndex];
+            const containerWidth = track.scrollWidth;
+            const containerVisibleWidth = track.parentElement.offsetWidth;
+            const cardWidth = activeCard.offsetWidth;
+            const cardOffsetLeft = activeCard.offsetLeft;
+            
+            // Calculate the perfect center position
+            const scrollTo = cardOffsetLeft - (containerVisibleWidth / 2) + (cardWidth / 2);
+            
+            track.scrollTo({
+                left: scrollTo,
+                behavior: 'smooth'
+            });
+        }
     }
     
     function nextSlide() {
         currentIndex = (currentIndex + 1) % totalCards;
-        goToSlide(currentIndex);
+        updateSlider();
     }
     
     function prevSlide() {
         currentIndex = (currentIndex - 1 + totalCards) % totalCards;
-        goToSlide(currentIndex);
+        updateSlider();
     }
     
     prevBtn.addEventListener('click', prevSlide);
     nextBtn.addEventListener('click', nextSlide);
     
+    // Add click event to testimonial cards
+    cards.forEach((card, index) => {
+        card.addEventListener('click', () => {
+            goToSlide(index);
+        });
+    });
+    
     // Auto-advance every 6 seconds
     setInterval(nextSlide, 6000);
+    
+    // Initialize first slide
+    updateSlider();
 }
 
 // ===================================
