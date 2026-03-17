@@ -139,7 +139,8 @@ body {
 .nav-links {
     display: flex;
     list-style: none;
-    gap: var(--spacing-lg);
+    gap: var(--spacing-xs);
+    margin-left: auto;
 }
 
 .nav-link {
