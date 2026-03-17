@@ -231,9 +231,40 @@ function initTeamSlider() {
     
     if (!teamMembers || !prevBtn || !nextBtn) return;
     
-    let currentIndex = 0;
     const members = document.querySelectorAll('.team-member');
     const totalMembers = members.length;
+    
+    if (totalMembers === 0) return;
+    
+    let currentIndex = 0;
+    
+    // Handle image loading errors
+    const images = document.querySelectorAll('.member-image img');
+    images.forEach(img => {
+        img.onerror = function() {
+            // Create fallback with initials
+            const memberInfo = this.closest('.team-member').querySelector('.member-info h3');
+            const name = memberInfo ? memberInfo.textContent : 'Team';
+            const initials = name.split(' ').map(word => word[0]).join('').toUpperCase();
+            
+            const fallback = document.createElement('div');
+            fallback.style.cssText = `
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(135deg, var(--primary-gradient));
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: var(--white);
+                font-size: 3rem;
+                font-family: var(--font-orbitron);
+                font-weight: bold;
+            `;
+            fallback.textContent = initials;
+            
+            this.parentNode.replaceChild(fallback, this);
+        };
+    });
     
     // Create dots
     for (let i = 0; i < totalMembers; i++) {
@@ -252,12 +283,32 @@ function initTeamSlider() {
     }
     
     function updateSlider() {
-        const offset = -currentIndex * 100;
-        teamMembers.style.transform = `translateX(${offset}%)`;
+        // Update active state for all members
+        members.forEach((member, index) => {
+            member.classList.toggle('active', index === currentIndex);
+        });
         
+        // Update dots
         dots.forEach((dot, index) => {
             dot.classList.toggle('active', index === currentIndex);
         });
+        
+        // Scroll to center the active member
+        if (members[currentIndex]) {
+            const activeMember = members[currentIndex];
+            const containerWidth = teamMembers.scrollWidth;
+            const containerVisibleWidth = teamMembers.parentElement.offsetWidth;
+            const memberWidth = activeMember.offsetWidth;
+            const memberOffsetLeft = activeMember.offsetLeft;
+            
+            // Calculate the perfect center position
+            const scrollTo = memberOffsetLeft - (containerVisibleWidth / 2) + (memberWidth / 2);
+            
+            teamMembers.scrollTo({
+                left: scrollTo,
+                behavior: 'smooth'
+            });
+        }
     }
     
     function nextSlide() {
@@ -273,8 +324,18 @@ function initTeamSlider() {
     prevBtn.addEventListener('click', prevSlide);
     nextBtn.addEventListener('click', nextSlide);
     
+    // Add click event to team members
+    members.forEach((member, index) => {
+        member.addEventListener('click', () => {
+            goToSlide(index);
+        });
+    });
+    
     // Auto-slide
     setInterval(nextSlide, 5000);
+    
+    // Initialize first slide
+    updateSlider();
 }
 
 // ===================================
@@ -830,150 +891,110 @@ const teamSlider = () => {
     const nextBtn = document.querySelector('.team-next');
     const dotsContainer = document.querySelector('.team-dots');
     
-    // Team members data (you can replace this with your actual team data)
-    const teamData = [
-        {
-            name: "Siseko Makomazi",
-            position: "CEO & Founder",
-            bio: "A visionary leader from Kayamandi who turned his passion for technology into a thriving business that creates opportunities for others.",
-            image: "assets/team/siseko.jpg.jpg"
-        },
-        // Add more team members here
-        // {
-        //     name: "Team Member Name",
-        //     position: "Position",
-        //     bio: "Short bio about the team member and their role in the company.",
-        //     image: "path/to/image.jpg"
-        // }
-    ];
-
+    if (!teamMembers || !prevBtn || !nextBtn) return;
     
-    // Initialize slider with team members
-    const initTeamSlider = () => {
-        // Clear existing content
-        teamMembers.innerHTML = '';
-        dotsContainer.innerHTML = '';
-        
-        // Create team member elements
-        teamData.forEach((member, index) => {
-            // Create team member element
-            const memberElement = document.createElement('div');
-            memberElement.className = 'team-member';
-            memberElement.innerHTML = `
-                <div class="member-image">
-                    <img src="${member.image}" alt="${member.name}">
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                    </div>
-                </div>
-                <div class="member-info">
-                    <h3>${member.name}</h3>
-                    <p class="position">${member.position}</p>
-                    <p class="bio">${member.bio}</p>
-                </div>
-            `;
-            
-            // Create dot for navigation
-            const dot = document.createElement('div');
-            dot.className = 'dot';
-            dot.setAttribute('data-index', index);
-            if (index === 0) dot.classList.add('active');
-            
-            // Add click event to dot
-            dot.addEventListener('click', () => {
-                goToSlide(index);
-            });
-            
-            // Append elements
-            teamMembers.appendChild(memberElement);
-            dotsContainer.appendChild(dot);
-        });
-        
-        // Update slider state
+    const members = document.querySelectorAll('.team-member');
+    const totalMembers = members.length;
+    
+    if (totalMembers === 0) return;
+    
+    let currentIndex = 0; // Start with first member as center
+    
+    // Clone all members for infinite loop effect
+    const clonedMembers = [];
+    members.forEach(member => {
+        const clone = member.cloneNode(true);
+        clonedMembers.push(clone);
+    });
+    
+    // Clear and repopulate with cloned members for infinite scroll
+    teamMembers.innerHTML = '';
+    clonedMembers.forEach(member => {
+        teamMembers.appendChild(member);
+    });
+    
+    // Create dots
+    for (let i = 0; i < totalMembers; i++) {
+        const dot = document.createElement('div');
+        dot.classList.add('dot');
+        if (i === currentIndex) dot.classList.add('active');
+        dot.addEventListener('click', () => goToSlide(i));
+        dotsContainer.appendChild(dot);
+    }
+    
+    const dots = document.querySelectorAll('.team-dots .dot');
+    
+    function goToSlide(index) {
+        currentIndex = index;
         updateSlider();
-    };
+    }
     
-    // Go to specific slide
-    const goToSlide = (index) => {
-        const slides = document.querySelectorAll('.team-member');
-        const dots = document.querySelectorAll('.dot');
-        
-        // Update active slide
-        slides.forEach((slide, i) => {
-            if (i === index) {
-                slide.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
-            }
-        });
-        
-        // Update active dot
-        dots.forEach((dot, i) => {
-            if (i === index) {
-                dot.classList.add('active');
+    function updateSlider() {
+        // Update active state for all members
+        clonedMembers.forEach((member, index) => {
+            // Calculate which position this member should be in
+            const relativeIndex = (index - currentIndex + totalMembers) % totalMembers;
+            const position = relativeIndex - 1; // -1, 0, 1, 2 for positions
+            
+            // Apply styles based on position
+            if (position === 0) {
+                // Center member - focused
+                member.classList.add('active');
+            } else if (position === 1 || position === -1) {
+                // Side members - blurred and reduced
+                member.classList.remove('active');
             } else {
-                dot.classList.remove('active');
+                // Far members - hidden
+                member.classList.remove('active');
+                member.style.opacity = '0';
+                member.style.visibility = 'hidden';
+                return;
             }
+            
+            member.style.opacity = '';
+            member.style.visibility = '';
         });
-    };
+        
+        // Update dots
+        dots.forEach((dot, index) => {
+            dot.classList.toggle('active', index === currentIndex);
+        });
+        
+        // Calculate transform to center the active member
+        const cardWidth = 320;
+        const gap = 32;
+        const centerOffset = (cardWidth + gap) * currentIndex;
+        
+        // Apply transform to center the active member
+        teamMembers.style.transform = `translateX(-${centerOffset}px)`;
+    }
     
-    // Update slider state based on scroll position
-    const updateSlider = () => {
-        const slides = document.querySelectorAll('.team-member');
-        const dots = document.querySelectorAll('.dot');
-        
-        // Update active dot based on scroll position
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const index = Array.from(slides).indexOf(entry.target);
-                    dots.forEach((dot, i) => {
-                        if (i === index) {
-                            dot.classList.add('active');
-                        } else {
-                            dot.classList.remove('active');
-                        }
-                    });
-                }
-            });
-        }, {
-            threshold: 0.5
-        });
-        
-        // Observe each slide
-        slides.forEach(slide => observer.observe(slide));
-    };
+    function nextSlide() {
+        currentIndex = (currentIndex + 1) % totalMembers;
+        updateSlider();
+    }
     
-    // Navigation event listeners
-    prevBtn.addEventListener('click', () => {
-        const slides = document.querySelectorAll('.team-member');
-        const currentIndex = Array.from(slides).findIndex(slide => {
-            const rect = slide.getBoundingClientRect();
-            return rect.left >= 0;
+    function prevSlide() {
+        currentIndex = (currentIndex - 1 + totalMembers) % totalMembers;
+        updateSlider();
+    }
+    
+    prevBtn.addEventListener('click', prevSlide);
+    nextBtn.addEventListener('click', nextSlide);
+    
+    // Add click event to team members
+    clonedMembers.forEach((member, index) => {
+        member.addEventListener('click', () => {
+            goToSlide(index % totalMembers);
         });
-        
-        const prevIndex = currentIndex <= 0 ? slides.length - 1 : currentIndex - 1;
-        goToSlide(prevIndex);
-    });
-
-    nextBtn.addEventListener('click', () => {
-        const slides = document.querySelectorAll('.team-member');
-        const currentIndex = Array.from(slides).findIndex(slide => {
-            const rect = slide.getBoundingClientRect();
-            return rect.left >= 0;
-        });
-        
-        const nextIndex = currentIndex >= slides.length - 1 ? 0 : currentIndex + 1;
-        goToSlide(nextIndex);
     });
     
-    // Initialize the slider
-    initTeamSlider();
+    // Auto-slide
+    setInterval(nextSlide, 5000);
+    
+    // Initialize with first slide
+    updateSlider();
 };
-
-// Initialize team slider when the DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
-    teamSlider();
-});
 
 // Add animation on scroll
 const animateOnScroll = () => {
