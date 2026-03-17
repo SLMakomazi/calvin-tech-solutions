@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initNavbarScroll();
     initSmoothScrolling();
     initParallaxEffects();
+    initMobileVideo();
 });
 
 // ===================================
@@ -946,3 +947,46 @@ window.addEventListener('scroll', function() {
         header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
     }
 });
+
+// ===================================
+// MOBILE VIDEO PLAYBACK
+// ===================================
+function initMobileVideo() {
+    const video = document.getElementById('hero-video');
+    
+    if (!video) return;
+    
+    // Try to play the video immediately
+    const playVideo = () => {
+        video.play().catch(error => {
+            console.log('Autoplay prevented, trying user interaction trigger');
+            
+            // Fallback: Try to play on first user interaction
+            const enableVideo = () => {
+                video.play().catch(e => console.log('Video play failed:', e));
+                document.removeEventListener('touchstart', enableVideo);
+                document.removeEventListener('click', enableVideo);
+            };
+            
+            document.addEventListener('touchstart', enableVideo, { once: true });
+            document.addEventListener('click', enableVideo, { once: true });
+        });
+    };
+    
+    // Try to play immediately
+    playVideo();
+    
+    // Also try when page becomes visible
+    document.addEventListener('visibilitychange', () => {
+        if (!document.hidden && video.paused) {
+            playVideo();
+        }
+    });
+    
+    // Try when window gets focus
+    window.addEventListener('focus', () => {
+        if (video.paused) {
+            playVideo();
+        }
+    });
+}
