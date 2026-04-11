@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initScrollAnimations();
     initHeroAnimations();
     initTeamSlider();
-    initTestimonialSlider();
+    init3DCarousel();
     initContactForm();
     initStatsCounters();
     initNavbarScroll();
@@ -340,79 +340,124 @@ function initTeamSlider() {
 }
 
 // ===================================
-// TESTIMONIAL SLIDER
+// 3D TESTIMONIAL CAROUSEL
 // ===================================
-function initTestimonialSlider() {
-    const track = document.querySelector('.testimonial-track');
-    const prevBtn = document.querySelector('.testimonial-prev');
-    const nextBtn = document.querySelector('.testimonial-next');
-    
-    if (!track || !prevBtn || !nextBtn) return;
-    
+function init3DCarousel() {
     const cards = document.querySelectorAll('.testimonial-card');
-    const totalCards = cards.length;
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
     
-    if (totalCards === 0) return;
+    if (!cards.length || !prevBtn || !nextBtn) return;
     
     let currentIndex = 0;
+    const totalCards = cards.length;
     
-    // Set first card as active initially
-    cards[0].classList.add('active');
-    
-    function goToSlide(index) {
-        currentIndex = index;
-        updateSlider();
-    }
-    
-    function updateSlider() {
-        // Update active state for all cards
-        cards.forEach((card, index) => {
-            card.classList.toggle('active', index === currentIndex);
+    function updateCarousel() {
+        // Remove all position classes
+        cards.forEach(card => {
+            card.classList.remove('center', 'left', 'right', 'hidden-left', 'hidden-right');
         });
         
-        // Scroll to center the active card
-        if (cards[currentIndex]) {
-            const activeCard = cards[currentIndex];
-            const containerWidth = track.scrollWidth;
-            const containerVisibleWidth = track.parentElement.offsetWidth;
-            const cardWidth = activeCard.offsetWidth;
-            const cardOffsetLeft = activeCard.offsetLeft;
-            
-            // Calculate the perfect center position
-            const scrollTo = cardOffsetLeft - (containerVisibleWidth / 2) + (cardWidth / 2);
-            
-            track.scrollTo({
-                left: scrollTo,
-                behavior: 'smooth'
-            });
-        }
+        // Calculate positions based on current index
+        const centerIndex = currentIndex;
+        const leftIndex = (currentIndex - 1 + totalCards) % totalCards;
+        const rightIndex = (currentIndex + 1) % totalCards;
+        
+        // Apply position classes
+        cards[centerIndex].classList.add('center');
+        cards[leftIndex].classList.add('left');
+        cards[rightIndex].classList.add('right');
+        
+        // Hide other cards
+        cards.forEach((card, index) => {
+            if (index !== centerIndex && index !== leftIndex && index !== rightIndex) {
+                if (index === (centerIndex - 2 + totalCards) % totalCards) {
+                    card.classList.add('hidden-left');
+                } else {
+                    card.classList.add('hidden-right');
+                }
+            }
+        });
     }
     
     function nextSlide() {
         currentIndex = (currentIndex + 1) % totalCards;
-        updateSlider();
+        updateCarousel();
     }
     
     function prevSlide() {
         currentIndex = (currentIndex - 1 + totalCards) % totalCards;
-        updateSlider();
+        updateCarousel();
     }
     
+    // Event listeners
     prevBtn.addEventListener('click', prevSlide);
     nextBtn.addEventListener('click', nextSlide);
     
-    // Add click event to testimonial cards
+    // Add click events to cards for navigation
     cards.forEach((card, index) => {
         card.addEventListener('click', () => {
-            goToSlide(index);
+            const cardClasses = card.classList;
+            if (cardClasses.contains('left')) {
+                prevSlide();
+            } else if (cardClasses.contains('right')) {
+                nextSlide();
+            }
         });
     });
     
-    // Auto-advance every 6 seconds
-    setInterval(nextSlide, 6000);
+    // Auto-rotate every 5 seconds
+    let autoRotateInterval = setInterval(nextSlide, 5000);
     
-    // Initialize first slide
-    updateSlider();
+    // Pause auto-rotate on hover
+    const carousel = document.querySelector('.carousel-3d');
+    if (carousel) {
+        carousel.addEventListener('mouseenter', () => {
+            clearInterval(autoRotateInterval);
+        });
+        
+        carousel.addEventListener('mouseleave', () => {
+            autoRotateInterval = setInterval(nextSlide, 5000);
+        });
+    }
+    
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') {
+            prevSlide();
+        } else if (e.key === 'ArrowRight') {
+            nextSlide();
+        }
+    });
+    
+    // Touch/swipe support for mobile
+    let touchStartX = 0;
+    let touchEndX = 0;
+    
+    carousel.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+    });
+    
+    carousel.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+    });
+    
+    function handleSwipe() {
+        const swipeThreshold = 50;
+        const diff = touchStartX - touchEndX;
+        
+        if (Math.abs(diff) > swipeThreshold) {
+            if (diff > 0) {
+                nextSlide(); // Swipe left, go to next
+            } else {
+                prevSlide(); // Swipe right, go to previous
+            }
+        }
+    }
+    
+    // Initialize carousel
+    updateCarousel();
 }
 
 // ===================================
