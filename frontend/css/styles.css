@@ -966,6 +966,28 @@ section {
     box-shadow: 0 0 10px rgba(0, 174, 239, 0.5);
 }
 
+/* Single team member display */
+.team-single {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: var(--spacing-lg) 0;
+}
+
+.team-single .team-member {
+    max-width: 400px;
+    text-align: center;
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0);
+    border-color: var(--electric-blue);
+    box-shadow: 0 0 30px rgba(0, 174, 239, 0.5);
+}
+
+.team-single .team-member:hover {
+    transform: translateY(-10px);
+}
+
 /* ===================================
    TESTIMONIALS SECTION
    =================================== */
