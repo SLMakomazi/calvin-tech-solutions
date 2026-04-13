@@ -3,6 +3,11 @@
    =================================== */
 /* This file imports all component-specific CSS files */
 
+/* Import Common Component Styles */
+@import url('./Common/Navbar.css');
+@import url('./Common/Buttons.css');
+@import url('./Common/MobileMenu.css');
+
 /* Import Hero Component Styles */
 @import url('./Hero/Hero.css');
 

@@ -1,0 +1,111 @@
+/* ===================================
+   NAVBAR COMPONENT STYLES
+   =================================== */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(10, 15, 28, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--glass-border);
+    z-index: 1000;
+    transition: var(--transition-normal);
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-md) var(--spacing-lg);
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.nav-center {
+    flex: 1;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo-img {
+    height: 50px;
+    filter: drop-shadow(0 0 10px rgba(31, 111, 235, 0.5));
+    transition: var(--transition-normal);
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 0;
+    align-items: center;
+    margin-left: auto;
+}
+
+.nav-links li {
+    position: relative;
+}
+
+.nav-link {
+    font-family: var(--font-orbitron);
+    font-size: 0.9rem;
+    color: var(--light-grey);
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: 25px;
+    transition: var(--transition-normal);
+    position: relative;
+}
+
+.nav-link:hover {
+    color: var(--white);
+    transform: translateY(-1px);
+}
+
+.hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+    cursor: pointer;
+    padding: var(--spacing-sm);
+    border-radius: 5px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    transition: var(--transition-normal);
+}
+
+.hamburger:hover {
+    background: rgba(31, 111, 235, 0.1);
+    border-color: var(--neon-blue);
+}
+
+.line {
+    width: 25px;
+    height: 3px;
+    background: var(--electric-blue);
+    border-radius: 2px;
+    transition: var(--transition-normal);
+}
+
+.hamburger:hover .line {
+    background: var(--white);
+    box-shadow: 0 0 10px rgba(31, 111, 235, 0.5);
+}
+
+/* ===================================
+   NAVBAR RESPONSIVE DESIGN
+   =================================== */
+@media (max-width: 1024px) {
+    .nav-links {
+        display: none;
+    }
+    
+    .hamburger {
+        display: flex;
+    }
+}

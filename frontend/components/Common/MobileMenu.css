@@ -1,0 +1,145 @@
+/* ===================================
+   MOBILE MENU COMPONENT STYLES
+   =================================== */
+.mobile-menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(10, 15, 28, 0.98);
+    backdrop-filter: blur(20px);
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--transition-normal);
+}
+
+.mobile-menu-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.mobile-menu-content {
+    text-align: center;
+    max-width: 90vw;
+    max-height: 90vh;
+    padding: var(--spacing-md);
+    overflow: hidden;
+}
+
+.mobile-menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-lg);
+}
+
+.mobile-logo {
+    height: 30px;
+    filter: drop-shadow(0 0 10px rgba(31, 111, 235, 0.5));
+}
+
+.mobile-menu-close {
+    width: 35px;
+    height: 35px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--electric-blue);
+    cursor: pointer;
+    transition: var(--transition-normal);
+    backdrop-filter: blur(10px);
+}
+
+.mobile-menu-close:hover {
+    background: var(--primary-gradient);
+    border-color: var(--electric-blue);
+    color: var(--white);
+    transform: scale(1.1);
+}
+
+.mobile-nav-links {
+    list-style: none;
+    margin-bottom: var(--spacing-lg);
+}
+
+.mobile-nav-links li {
+    margin-bottom: var(--spacing-md);
+}
+
+.mobile-nav-link {
+    font-family: var(--font-orbitron);
+    font-size: 1.2rem;
+    color: var(--white);
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: var(--transition-normal);
+    display: inline-block;
+}
+
+.mobile-nav-link:hover {
+    color: var(--electric-blue);
+    transform: scale(1.05);
+    text-shadow: 0 0 20px rgba(31, 111, 235, 0.8);
+}
+
+.mobile-social-links {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-md);
+}
+
+/* ===================================
+   MOBILE MENU RESPONSIVE DESIGN
+   =================================== */
+@media (max-width: 1024px) and (min-width: 769px) {
+    .mobile-menu-content {
+        max-width: 80vw;
+        max-height: 85vh;
+        padding: var(--spacing-md);
+    }
+    
+    .mobile-nav-links {
+        font-size: 1.1rem;
+    }
+    
+    .mobile-nav-link {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .mobile-menu-content {
+        max-width: 95vw;
+        max-height: 90vh;
+        padding: var(--spacing-sm);
+    }
+    
+    .mobile-menu-header {
+        margin-bottom: var(--spacing-md);
+    }
+    
+    .mobile-nav-links {
+        margin-bottom: var(--spacing-md);
+    }
+    
+    .mobile-nav-links li {
+        margin-bottom: var(--spacing-sm);
+    }
+    
+    .mobile-nav-link {
+        font-size: 1rem;
+    }
+    
+    .mobile-logo {
+        height: 25px;
+    }
+}
