@@ -321,10 +321,15 @@ class ProjectsComponent {
     }
 }
 
-// Initialize projects component when DOM is ready
-document.addEventListener('DOMContentLoaded', () => {
+let projectsComponentInitialized = false;
+const initializeProjectsComponent = () => {
+    if (projectsComponentInitialized) return;
     new ProjectsComponent();
-});
+    projectsComponentInitialized = true;
+};
+
+document.addEventListener('DOMContentLoaded', initializeProjectsComponent);
+document.addEventListener('componentsLoaded', initializeProjectsComponent);
 
 // Export for module systems
 if (typeof module !== 'undefined' && module.exports) {

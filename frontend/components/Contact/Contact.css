@@ -57,12 +57,18 @@
 }
 
 .contact-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--spacing-xl);
+    display: grid !important;
+    grid-template-columns: minmax(360px, 1.2fr) minmax(420px, 1fr) !important;
+    gap: var(--spacing-xl) !important;
     align-items: start;
     position: relative;
     z-index: 2;
+    min-height: 560px;
+}
+
+.contact-container > .contact-info,
+.contact-container > .contact-form {
+    min-width: 0;
 }
 
 /* Contact Info Section */

@@ -440,10 +440,18 @@ class ContactComponent {
     }
 }
 
-// Initialize contact component when DOM is ready
-document.addEventListener('DOMContentLoaded', () => {
+let contactComponentInitialized = false;
+
+const initializeContactComponent = () => {
+    if (contactComponentInitialized) return;
+    if (!document.querySelector('.contact-component')) return;
+
     new ContactComponent();
-});
+    contactComponentInitialized = true;
+};
+
+document.addEventListener('componentsLoaded', initializeContactComponent);
+document.addEventListener('DOMContentLoaded', initializeContactComponent);
 
 // Export for module systems
 if (typeof module !== 'undefined' && module.exports) {

@@ -414,10 +414,15 @@ class AboutComponent {
     }
 }
 
-// Initialize about component when DOM is ready
-document.addEventListener('DOMContentLoaded', () => {
+let aboutComponentInitialized = false;
+const initializeAboutComponent = () => {
+    if (aboutComponentInitialized) return;
     new AboutComponent();
-});
+    aboutComponentInitialized = true;
+};
+
+document.addEventListener('DOMContentLoaded', initializeAboutComponent);
+document.addEventListener('componentsLoaded', initializeAboutComponent);
 
 // Export for module systems
 if (typeof module !== 'undefined' && module.exports) {

@@ -118,10 +118,15 @@ class FooterComponent {
     }
 }
 
-// Initialize footer component when DOM is ready
-document.addEventListener('DOMContentLoaded', () => {
+let footerComponentInitialized = false;
+const initializeFooterComponent = () => {
+    if (footerComponentInitialized) return;
     new FooterComponent();
-});
+    footerComponentInitialized = true;
+};
+
+document.addEventListener('DOMContentLoaded', initializeFooterComponent);
+document.addEventListener('componentsLoaded', initializeFooterComponent);
 
 // Export for module systems
 if (typeof module !== 'undefined' && module.exports) {

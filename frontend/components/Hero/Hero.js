@@ -409,10 +409,15 @@ class HeroComponent {
     }
 }
 
-// Initialize hero component when DOM is ready
-document.addEventListener('DOMContentLoaded', () => {
+let heroComponentInitialized = false;
+const initializeHeroComponent = () => {
+    if (heroComponentInitialized) return;
     new HeroComponent();
-});
+    heroComponentInitialized = true;
+};
+
+document.addEventListener('DOMContentLoaded', initializeHeroComponent);
+document.addEventListener('componentsLoaded', initializeHeroComponent);
 
 // Export for module systems
 if (typeof module !== 'undefined' && module.exports) {

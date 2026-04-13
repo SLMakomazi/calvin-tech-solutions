@@ -90,7 +90,12 @@ class TeamComponent {
     }
 }
 
-// Initialize component when DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
+let teamComponentInitialized = false;
+const initializeTeamComponent = () => {
+    if (teamComponentInitialized) return;
     window.TeamComponent = new TeamComponent();
-});
+    teamComponentInitialized = true;
+};
+
+document.addEventListener('DOMContentLoaded', initializeTeamComponent);
+document.addEventListener('componentsLoaded', initializeTeamComponent);

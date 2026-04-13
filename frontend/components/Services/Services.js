@@ -369,10 +369,15 @@ class ServicesComponent {
     }
 }
 
-// Initialize services component when DOM is ready
-document.addEventListener('DOMContentLoaded', () => {
+let servicesComponentInitialized = false;
+const initializeServicesComponent = () => {
+    if (servicesComponentInitialized) return;
     new ServicesComponent();
-});
+    servicesComponentInitialized = true;
+};
+
+document.addEventListener('DOMContentLoaded', initializeServicesComponent);
+document.addEventListener('componentsLoaded', initializeServicesComponent);
 
 // Export for module systems
 if (typeof module !== 'undefined' && module.exports) {

@@ -393,10 +393,15 @@ class NewsComponent {
     }
 }
 
-// Initialize news component when DOM is ready
-document.addEventListener('DOMContentLoaded', () => {
+let newsComponentInitialized = false;
+const initializeNewsComponent = () => {
+    if (newsComponentInitialized) return;
     new NewsComponent();
-});
+    newsComponentInitialized = true;
+};
+
+document.addEventListener('DOMContentLoaded', initializeNewsComponent);
+document.addEventListener('componentsLoaded', initializeNewsComponent);
 
 // Export for module systems
 if (typeof module !== 'undefined' && module.exports) {
