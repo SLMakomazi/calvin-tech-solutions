@@ -213,11 +213,11 @@ class ComponentValidator {
         const testimonialsElement = document.querySelector('.testimonials-component');
         if (!testimonialsElement) return false;
 
-        const hasCarousel = testimonialsElement.querySelector('.carousel-3d');
+        const hasTestimonialsGrid = testimonialsElement.querySelector('.testimonials-grid');
         const hasTestimonialCards = testimonialsElement.querySelectorAll('.testimonial-card').length > 0;
-        const hasNavButtons = testimonialsElement.querySelector('.carousel-nav');
+        const hasTestimonialsActions = testimonialsElement.querySelector('.testimonials-actions');
 
-        return !!(hasCarousel && hasTestimonialCards && hasNavButtons);
+        return !!(hasTestimonialsGrid && hasTestimonialCards && hasTestimonialsActions);
     }
 
     // Validate Projects component

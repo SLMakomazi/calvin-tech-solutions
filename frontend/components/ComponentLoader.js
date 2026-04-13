@@ -18,6 +18,11 @@ class ComponentLoader {
     // Load all component CSS files
     loadComponentCSS() {
         const cssFiles = [
+            'components/Hero/Hero.css',
+            'components/About/About.css',
+            'components/Services/Services.css',
+            'components/Team/Team.css',
+            'components/Testimonials/Testimonials.css',
             'components/Footer/Footer.css',
             'components/Projects/Projects.css',
             'components/News/News.css',
