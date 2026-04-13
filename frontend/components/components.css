@@ -113,8 +113,11 @@
 /* Force value card specific changes */
 .about-component .values-grid {
     display: grid !important;
-    grid-template-columns: repeat(4, 1fr) !important;
-    gap: var(--spacing-lg) !important;
+    grid-template-columns: repeat(4, 250px) !important;
+    gap: var(--spacing-md) !important;
+    max-width: 1200px !important;
+    margin: 0 auto !important;
+    justify-content: center !important;
 }
 
 .about-component .value-card {
