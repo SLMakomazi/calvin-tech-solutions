@@ -17,7 +17,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: var(--spacing-md) var(--spacing-lg);
+    padding: var(--spacing-xs) var(--spacing-lg);
     max-width: 1200px;
     margin: 0 auto;
 }
@@ -29,10 +29,11 @@
 .logo {
     display: flex;
     align-items: center;
+    align-content: left;
 }
 
 .logo-img {
-    height: 50px;
+    height: 80px;
     filter: drop-shadow(0 0 10px rgba(31, 111, 235, 0.5));
     transition: var(--transition-normal);
 }
@@ -40,9 +41,9 @@
 .nav-links {
     display: flex;
     list-style: none;
-    gap: 0;
-    align-items: center;
+    gap: 0px;
     margin-left: auto;
+    
 }
 
 .nav-links li {
