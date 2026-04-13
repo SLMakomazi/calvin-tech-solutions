@@ -110,9 +110,46 @@
     font-size: 1.8rem !important;
 }
 
+/* Force value card specific changes */
+.about-component .values-grid {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: var(--spacing-lg) !important;
+}
+
+.about-component .value-card {
+    padding: var(--spacing-md) !important;
+    min-height: 140px !important;
+}
+
+/* Force value icon centering */
+.about-component .value-icon {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    text-align: center !important;
+    margin: 0 auto var(--spacing-sm) !important;
+}
+
+.about-component .value-icon i,
+.about-component .value-icon .fas,
+.about-component .value-icon .fa {
+    display: block !important;
+    margin: 0 auto !important;
+    text-align: center !important;
+    position: relative !important;
+    left: 0 !important;
+    right: 0 !important;
+    transform: none !important;
+}
+
 /* Responsive stat card overrides */
 @media (max-width: 1024px) {
     .about-component .stats-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+    
+    .about-component .values-grid {
         grid-template-columns: repeat(2, 1fr) !important;
     }
 }
@@ -121,6 +158,11 @@
     .about-component .stats-grid {
         grid-template-columns: repeat(2, 1fr) !important;
         gap: var(--spacing-sm) !important;
+    }
+    
+    .about-component .values-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: var(--spacing-md) !important;
     }
 }
 
