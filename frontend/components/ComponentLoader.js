@@ -10,8 +10,8 @@ class ComponentLoader {
     }
 
     init() {
-        this.loadComponentCSS();
-        this.loadComponentJS();
+        this.loadCSSPromise = this.loadComponentCSS();
+        this.loadJSPromise = this.loadComponentJS();
         this.setupComponentLoader();
     }
 
@@ -29,9 +29,7 @@ class ComponentLoader {
             'components/Contact/Contact.css'
         ];
 
-        cssFiles.forEach(cssFile => {
-            this.loadCSSFile(cssFile);
-        });
+        return Promise.all(cssFiles.map(cssFile => this.loadCSSFile(cssFile)));
     }
 
     // Load individual CSS file
@@ -56,16 +54,18 @@ class ComponentLoader {
     // Load all component JavaScript files
     loadComponentJS() {
         const jsFiles = [
+            'components/Hero/Hero.js',
+            'components/About/About.js',
+            'components/Services/Services.js',
             'components/Team/Team.js',
+            'components/Testimonials/Testimonials.js',
             'components/Footer/Footer.js',
             'components/Projects/Projects.js',
             'components/News/News.js',
             'components/Contact/Contact.js'
         ];
 
-        jsFiles.forEach(jsFile => {
-            this.loadJSFile(jsFile);
-        });
+        return Promise.all(jsFiles.map(jsFile => this.loadJSFile(jsFile)));
     }
 
     // Load individual JavaScript file
@@ -101,6 +101,9 @@ class ComponentLoader {
     // Initialize all components
     async initializeComponents() {
         try {
+            // Wait for JS files to finish loading before initializing components
+            await this.loadJSPromise;
+
             // Wait for all CSS to load
             await this.waitForCSSToLoad();
             
@@ -113,7 +116,7 @@ class ComponentLoader {
             
             this.isLoaded = true;
             
-            // Emit loaded event
+            // Emit loaded event after HTML and JS are ready
             this.emitEvent('componentsLoaded');
             
             console.log('All components loaded successfully');
