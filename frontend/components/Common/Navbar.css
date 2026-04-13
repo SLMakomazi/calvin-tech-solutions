@@ -41,7 +41,7 @@
 .nav-links {
     display: flex;
     list-style: none;
-    gap: 0px;
+    gap: -10px;
     margin-left: auto;
     
 }

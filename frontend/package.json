@@ -1,0 +1,28 @@
+{
+  "name": "calvin-tech-solutions",
+  "version": "1.0.0",
+  "description": "Calvin Tech Solutions - B-BBEE Level 1 Digital Transformation Company",
+  "main": "index.html",
+  "scripts": {
+    "start": "live-server --port=3000 --open=/index.html",
+    "dev": "live-server --port=3000 --open=/index.html --watch=.",
+    "build": "echo 'Build process not configured yet'",
+    "serve": "python -m http.server 8000",
+    "test": "echo 'No tests specified yet'"
+  },
+  "keywords": [
+    "calvin-tech-solutions",
+    "bbbee",
+    "digital-transformation",
+    "web-development",
+    "south-africa"
+  ],
+  "author": "Siseko Makomazi",
+  "license": "MIT",
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

@@ -1,6 +1,7 @@
 // ===================================
 // COMPONENT LOADER - MANAGES ALL WEBSITE COMPONENTS
 // ===================================
+
 class ComponentLoader {
     constructor() {
         this.components = new Map();
@@ -100,16 +101,9 @@ class ComponentLoader {
             // Load component HTML into containers
             await this.loadComponentHTML();
             
-            // Initialize component instances
-            this.components.set('hero', new HeroComponent());
-            this.components.set('services', new ServicesComponent());
-            this.components.set('team', new TeamComponent());
-            this.components.set('testimonials', new TestimonialsComponent());
-            this.components.set('about', new AboutComponent());
-            this.components.set('projects', new ProjectsComponent());
-            this.components.set('news', new NewsComponent());
-            this.components.set('contact', new ContactComponent());
-            this.components.set('footer', new FooterComponent());
+            // Component instances will be initialized by their respective JS files
+            // HTML content is now loaded and displayed
+            console.log('All component HTML loaded successfully');
             
             this.isLoaded = true;
             
@@ -141,13 +135,34 @@ class ComponentLoader {
         for (const component of components) {
             try {
                 const response = await fetch(component.file);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
                 const html = await response.text();
                 const container = document.getElementById(component.container);
+                
                 if (container) {
                     container.innerHTML = html;
+                } else {
+                    console.error(`Container ${component.container} not found`);
                 }
             } catch (error) {
                 console.error(`Error loading ${component.name} HTML:`, error);
+                
+                // Fallback: Add a placeholder message
+                const container = document.getElementById(component.container);
+                if (container) {
+                    container.innerHTML = `
+                        <div style="padding: 2rem; text-align: center; background: rgba(255,0,0,0.1); border: 1px solid red; border-radius: 8px; margin: 1rem;">
+                            <h3 style="color: red;">Component "${component.name}" failed to load</h3>
+                            <p>Could not load: ${component.file}</p>
+                            <p>Error: ${error.message}</p>
+                            <p>Please check the browser console for more details.</p>
+                        </div>
+                    `;
+                }
             }
         }
     }
@@ -159,7 +174,7 @@ class ComponentLoader {
                 const links = document.querySelectorAll('link[rel="stylesheet"]');
                 const loadedCount = Array.from(links).filter(link => link.sheet).length;
                 
-                if (loadedCount >= 9) { // Number of CSS files we're loading
+                if (loadedCount >= links.length) { // Wait for all CSS files to load
                     resolve();
                 } else {
                     setTimeout(checkCSS, 100);
