@@ -56,6 +56,7 @@ class ComponentLoader {
     // Load all component JavaScript files
     loadComponentJS() {
         const jsFiles = [
+            'components/Team/Team.js',
             'components/Footer/Footer.js',
             'components/Projects/Projects.js',
             'components/News/News.js',

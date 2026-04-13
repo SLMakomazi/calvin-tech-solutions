@@ -57,7 +57,6 @@
 /* Force all nested elements visible */
 .about-component *,
 .services-component *,
-.team-component *,
 .testimonials-component *,
 .news-component *,
 .contact-component * {
@@ -65,6 +64,7 @@
     visibility: visible !important;
     opacity: 1 !important;
 }
+
 
 /* Fix specific grid layouts */
 .services-grid,
@@ -83,7 +83,6 @@
 
 /* Force cards to be visible */
 .service-card,
-.team-member,
 .testimonial-card,
 .news-card,
 .stat-card,
@@ -113,11 +112,10 @@
 /* Force value card specific changes */
 .about-component .values-grid {
     display: grid !important;
-    grid-template-columns: repeat(4, 250px) !important;
-    gap: var(--spacing-md) !important;
-    max-width: 1200px !important;
+    grid-template-columns: repeat(4, minmax(280px, 1fr)) !important;
+    gap: var(--spacing-lg) !important;
+    max-width: 1400px !important;
     margin: 0 auto !important;
-    justify-content: center !important;
 }
 
 .about-component .value-card {
