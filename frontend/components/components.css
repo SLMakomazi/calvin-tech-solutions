@@ -146,6 +146,27 @@
     transform: none !important;
 }
 
+/* Force service icon centering */
+.services-component .service-icon {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    text-align: center !important;
+    margin: 0 auto var(--spacing-md) !important;
+}
+
+.services-component .service-icon i,
+.services-component .service-icon .fas,
+.services-component .service-icon .fa {
+    display: block !important;
+    margin: 0 auto !important;
+    text-align: center !important;
+    position: relative !important;
+    left: 0 !important;
+    right: 0 !important;
+    transform: none !important;
+}
+
 /* Responsive stat card overrides */
 @media (max-width: 1024px) {
     .about-component .stats-grid {
