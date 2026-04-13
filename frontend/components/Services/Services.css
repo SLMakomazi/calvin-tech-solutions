@@ -1,0 +1,298 @@
+/* ===================================
+   SERVICES COMPONENT - SCOPED STYLES
+   =================================== */
+.services-component {
+    background: linear-gradient(180deg, var(--secondary-bg), var(--primary-bg));
+    padding: var(--spacing-xl) 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.services-component::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--primary-gradient);
+}
+
+.services-component .section-header {
+    text-align: center;
+    margin-bottom: var(--spacing-xl);
+    position: relative;
+    z-index: 2;
+}
+
+.services-component .section-title {
+    font-family: var(--font-orbitron);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: var(--spacing-sm);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    position: relative;
+}
+
+.services-component .section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: var(--primary-gradient);
+    border-radius: 2px;
+}
+
+.services-component .section-subtitle {
+    font-size: 1.1rem;
+    color: var(--soft-grey);
+    max-width: 600px;
+    margin: var(--spacing-lg) auto 0;
+    line-height: 1.6;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: var(--spacing-lg);
+    margin-top: var(--spacing-xl);
+    position: relative;
+    z-index: 2;
+}
+
+.service-card {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: var(--spacing-lg);
+    backdrop-filter: blur(10px);
+    transition: var(--transition-normal);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 300px;
+    justify-content: space-between;
+}
+
+.service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--primary-gradient);
+    opacity: 0;
+    transition: var(--transition-normal);
+    z-index: -1;
+    border-radius: 20px;
+}
+
+.service-card:hover {
+    transform: translateY(-8px) rotateX(5deg);
+    box-shadow: var(--shadow-glow);
+    border-color: var(--neon-blue);
+}
+
+.service-card:hover::before {
+    opacity: 0.1;
+}
+
+.service-card > * {
+    position: relative;
+    z-index: 1;
+}
+
+.service-icon {
+    width: 60px;
+    height: 60px;
+    background: var(--glass-bg);
+    border: 2px solid var(--neon-blue);
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: var(--spacing-md);
+    font-size: 1.5rem;
+    color: var(--electric-blue);
+    transition: var(--transition-normal);
+    flex-shrink: 0;
+}
+
+.service-card:hover .service-icon {
+    background: var(--primary-gradient);
+    border-color: var(--electric-blue);
+    color: var(--white);
+    transform: scale(1.1);
+}
+
+.service-card h3 {
+    font-family: var(--font-orbitron);
+    font-size: 1.2rem;
+    color: var(--white);
+    margin-bottom: var(--spacing-sm);
+    line-height: 1.3;
+    flex-shrink: 0;
+}
+
+.service-card p {
+    color: var(--soft-grey);
+    line-height: 1.5;
+    margin-bottom: var(--spacing-md);
+    font-size: 0.9rem;
+    flex: 1;
+}
+
+.service-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-xs);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex-shrink: 0;
+    margin-top: auto;
+}
+
+.service-tech span {
+    background: rgba(31, 111, 235, 0.2);
+    color: var(--electric-blue);
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    border: 1px solid rgba(31, 111, 235, 0.3);
+    white-space: nowrap;
+    transition: var(--transition-normal);
+}
+
+.service-tech span:hover {
+    background: rgba(31, 111, 235, 0.3);
+    transform: translateY(-2px);
+}
+
+/* ===================================
+   SERVICES RESPONSIVE DESIGN
+   =================================== */
+@media (max-width: 1024px) {
+    .services-grid {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: var(--spacing-md);
+    }
+    
+    .service-card {
+        padding: var(--spacing-md);
+    }
+    
+    .service-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+    }
+    
+    .service-card h3 {
+        font-size: 1.1rem;
+    }
+    
+    .service-tech span {
+        font-size: 0.7rem;
+        padding: 2px 8px;
+    }
+}
+
+@media (max-width: 768px) {
+    .services-component {
+        padding: var(--spacing-lg) 0;
+    }
+    
+    .services-grid {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-lg);
+    }
+    
+    .service-card {
+        padding: var(--spacing-md);
+        min-height: 280px;
+    }
+    
+    .service-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+        margin-bottom: var(--spacing-sm);
+    }
+    
+    .service-card h3 {
+        font-size: 1rem;
+    }
+    
+    .service-card p {
+        font-size: 0.85rem;
+    }
+    
+    .service-tech span {
+        font-size: 0.65rem;
+        padding: 2px 6px;
+    }
+}
+
+@media (max-width: 480px) {
+    .services-component .section-title {
+        font-size: 1.8rem;
+    }
+    
+    .services-component .section-subtitle {
+        font-size: 1rem;
+    }
+    
+    .service-card {
+        padding: var(--spacing-sm);
+        min-height: 250px;
+    }
+    
+    .service-icon {
+        width: 45px;
+        height: 45px;
+        font-size: 1rem;
+    }
+    
+    .service-card h3 {
+        font-size: 0.9rem;
+    }
+    
+    .service-card p {
+        font-size: 0.8rem;
+    }
+    
+    .service-tech span {
+        font-size: 0.6rem;
+        padding: 2px 5px;
+    }
+}
+
+/* ===================================
+   SERVICES ANIMATIONS
+   =================================== */
+.service-card {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.service-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Stagger animation for service cards */
+.service-card:nth-child(1) { transition-delay: 0.1s; }
+.service-card:nth-child(2) { transition-delay: 0.2s; }
+.service-card:nth-child(3) { transition-delay: 0.3s; }
+.service-card:nth-child(4) { transition-delay: 0.4s; }
+.service-card:nth-child(5) { transition-delay: 0.5s; }
+.service-card:nth-child(6) { transition-delay: 0.6s; }

@@ -1,0 +1,279 @@
+/* ===================================
+   MAIN COMPONENTS STYLESHEET
+   =================================== */
+/* This file imports all component-specific CSS files */
+
+/* Import Hero Component Styles */
+@import url('./Hero/Hero.css');
+
+/* Import About Component Styles */
+@import url('./About/About.css');
+
+/* Import Services Component Styles */
+@import url('./Services/Services.css');
+
+/* Import Team Component Styles */
+@import url('./Team/Team.css');
+
+/* Import Testimonials Component Styles */
+@import url('./Testimonials/Testimonials.css');
+
+/* Import Projects Component Styles */
+@import url('./Projects/Projects.css');
+
+/* Import News Component Styles */
+@import url('./News/News.css');
+
+/* Import Contact Component Styles */
+@import url('./Contact/Contact.css');
+
+/* Import Footer Component Styles */
+@import url('./Footer/Footer.css');
+
+/* ===================================
+   COMPONENT-SPECIFIC OVERRIDES & UTILITIES
+   =================================== */
+
+/* Component loading states */
+.component-loading {
+    opacity: 0.6;
+    pointer-events: none;
+    position: relative;
+}
+
+.component-loading::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+/* Component error states */
+.component-error {
+    border: 2px solid #ff0000;
+    background: rgba(255, 0, 0, 0.1);
+}
+
+/* Component success states */
+.component-success {
+    border: 2px solid #00ff00;
+    background: rgba(0, 255, 0, 0.1);
+}
+
+/* Toast notifications */
+.toast-notification {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 10px;
+    padding: var(--spacing-md);
+    color: var(--white);
+    backdrop-filter: blur(10px);
+    transform: translateX(400px);
+    transition: transform 0.3s ease;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.toast-notification.show {
+    transform: translateX(0);
+}
+
+.toast-notification i {
+    color: var(--electric-blue);
+}
+
+/* Modal styles */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.modal-content {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: var(--spacing-xl);
+    backdrop-filter: blur(10px);
+    max-width: 600px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+}
+
+.modal-overlay.show {
+    opacity: 1;
+}
+
+.modal-overlay.show .modal-content {
+    transform: scale(1);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-lg);
+    padding-bottom: var(--spacing-md);
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.modal-header h3 {
+    font-family: var(--font-orbitron);
+    color: var(--white);
+    margin: 0;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    color: var(--soft-grey);
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: var(--transition-normal);
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.modal-close:hover {
+    color: var(--white);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.modal-body {
+    color: var(--light-grey);
+    line-height: 1.6;
+}
+
+.modal-footer {
+    margin-top: var(--spacing-lg);
+    padding-top: var(--spacing-md);
+    border-top: 1px solid var(--glass-border);
+    text-align: right;
+}
+
+/* Filter buttons */
+.filter-btn {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    color: var(--soft-grey);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: 20px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: var(--transition-normal);
+    margin: 0 var(--spacing-xs);
+}
+
+.filter-btn:hover {
+    border-color: var(--electric-blue);
+    color: var(--electric-blue);
+}
+
+.filter-btn.active {
+    background: var(--electric-blue);
+    color: var(--white);
+    border-color: var(--electric-blue);
+}
+
+/* Search inputs */
+.search-input {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    color: var(--white);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: 20px;
+    font-size: 0.9rem;
+    outline: none;
+    transition: var(--transition-normal);
+    width: 200px;
+}
+
+.search-input:focus {
+    border-color: var(--electric-blue);
+    box-shadow: 0 0 10px rgba(0, 174, 239, 0.3);
+}
+
+.search-input::placeholder {
+    color: var(--soft-grey);
+}
+
+/* Shake animation for errors */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+    20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+/* Field error styles */
+.field-error {
+    color: #ff0000;
+    font-size: 0.8rem;
+    margin-top: var(--spacing-xs);
+    display: block;
+}
+
+.form-group input.error,
+.form-group textarea.error {
+    border-color: #ff0000;
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+}
+
+/* Responsive utilities */
+@media (max-width: 768px) {
+    .toast-notification {
+        right: 10px;
+        bottom: 10px;
+        left: 10px;
+        transform: translateY(100px);
+    }
+    
+    .toast-notification.show {
+        transform: translateY(0);
+    }
+    
+    .modal-content {
+        padding: var(--spacing-lg);
+        margin: var(--spacing-md);
+    }
+    
+    .search-input {
+        width: 100%;
+        margin-bottom: var(--spacing-sm);
+    }
+    
+    .filter-btn {
+        display: block;
+        width: 100%;
+        margin: var(--spacing-xs) 0;
+    }
+}

@@ -1,0 +1,213 @@
+/* ===================================
+   FOOTER COMPONENT - SCOPED STYLES
+   =================================== */
+.footer-component {
+    background: linear-gradient(180deg, var(--secondary-bg), #0a0a0a);
+    padding: var(--spacing-xl) 0 var(--spacing-lg);
+    position: relative;
+    overflow: hidden;
+}
+
+.footer-component::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--primary-gradient);
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: var(--spacing-xl);
+    margin-bottom: var(--spacing-lg);
+}
+
+.footer-brand {
+    text-align: left;
+}
+
+.footer-logo {
+    height: 50px;
+    margin-bottom: var(--spacing-md);
+    filter: brightness(1.1);
+    transition: var(--transition-normal);
+}
+
+.footer-logo:hover {
+    transform: scale(1.05);
+}
+
+.footer-tagline {
+    font-family: var(--font-orbitron);
+    color: var(--electric-blue);
+    font-size: 1.1rem;
+    margin-bottom: var(--spacing-sm);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.footer-description {
+    color: var(--soft-grey);
+    line-height: 1.6;
+    margin-bottom: var(--spacing-lg);
+    max-width: 400px;
+}
+
+.footer-component .social-links {
+    display: flex;
+    gap: var(--spacing-md);
+}
+
+.footer-component .social-link {
+    width: 40px;
+    height: 40px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--electric-blue);
+    text-decoration: none;
+    transition: var(--transition-normal);
+    backdrop-filter: blur(10px);
+}
+
+.footer-component .social-link:hover {
+    background: var(--electric-blue);
+    color: var(--white);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 174, 239, 0.4);
+}
+
+.footer-links h4,
+.footer-services h4 {
+    font-family: var(--font-orbitron);
+    color: var(--white);
+    margin-bottom: var(--spacing-md);
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.footer-links ul,
+.footer-services ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-links li,
+.footer-services li {
+    margin-bottom: var(--spacing-sm);
+}
+
+.footer-links a,
+.footer-services a {
+    color: var(--soft-grey);
+    text-decoration: none;
+    transition: var(--transition-normal);
+    font-size: 0.95rem;
+}
+
+.footer-links a:hover,
+.footer-services a:hover {
+    color: var(--electric-blue);
+    transform: translateX(5px);
+    display: inline-block;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: var(--spacing-lg);
+    border-top: 1px solid var(--glass-border);
+}
+
+.footer-divider {
+    height: 1px;
+    background: var(--primary-gradient);
+    margin-bottom: var(--spacing-lg);
+    opacity: 0.5;
+}
+
+.footer-bottom p {
+    color: var(--soft-grey);
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+/* ===================================
+   FOOTER RESPONSIVE DESIGN
+   =================================== */
+@media (max-width: 1024px) {
+    .footer-content {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--spacing-lg);
+    }
+    
+    .footer-brand {
+        grid-column: 1 / -1;
+        text-align: center;
+    }
+    
+    .footer-description {
+        margin: 0 auto var(--spacing-lg);
+    }
+}
+
+@media (max-width: 768px) {
+    .footer-component {
+        padding: var(--spacing-lg) 0 var(--spacing-md);
+    }
+    
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-lg);
+        text-align: center;
+    }
+    
+    .footer-brand {
+        grid-column: 1;
+    }
+    
+    .footer-description {
+        max-width: 100%;
+    }
+    
+    .footer-component .social-links {
+        justify-content: center;
+    }
+    
+    .footer-links,
+    .footer-services {
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer-logo {
+        height: 40px;
+    }
+    
+    .footer-tagline {
+        font-size: 1rem;
+    }
+    
+    .footer-description {
+        font-size: 0.9rem;
+    }
+    
+    .footer-links h4,
+    .footer-services h4 {
+        font-size: 1rem;
+    }
+    
+    .footer-component .social-link {
+        width: 35px;
+        height: 35px;
+        font-size: 0.9rem;
+    }
+}
