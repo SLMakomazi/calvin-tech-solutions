@@ -139,7 +139,7 @@
 }
 
 .hero-text {
-    animation: fadeInUp 1s ease-out;
+    /* Removed animation to prevent conflicts with loading states */
 }
 
 @keyframes fadeInUp {
@@ -491,6 +491,7 @@
 .hero-component.loaded .hero-text {
     opacity: 1;
     transform: translateY(0);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
 }
 
 /* Video fallback for mobile */

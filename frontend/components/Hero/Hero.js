@@ -312,13 +312,21 @@ class HeroComponent {
         heroSection.classList.add('loading');
         
         // Remove loading class when everything is ready
-        window.addEventListener('load', () => {
+        const handleLoad = () => {
             setTimeout(() => {
                 heroSection.classList.remove('loading');
                 heroSection.classList.add('loaded');
                 this.trackHeroInteraction('hero_loaded');
             }, 500);
-        });
+        };
+        
+        if (document.readyState === 'complete') {
+            // Window already loaded
+            handleLoad();
+        } else {
+            // Wait for window load
+            window.addEventListener('load', handleLoad);
+        }
     }
 
     // Track hero interactions
