@@ -194,27 +194,34 @@ class AboutComponent {
 
     // Setup scroll animations
     setupScrollAnimations() {
+        // Get all animated elements
+        const animatedElements = document.querySelectorAll('.about-component .lead, .about-component .stat-card, .about-component .value-card');
+        
+        if (animatedElements.length === 0) {
+            console.warn('No animated elements found in About component');
+            return;
+        }
+
+        // Immediately make all elements visible
+        animatedElements.forEach((element) => {
+            element.classList.add('visible');
+        });
+        
+        // Optional: Add scroll-based animations for elements not yet visible
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -50px 0px'
         };
 
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry, index) => {
+            entries.forEach((entry) => {
                 if (entry.isIntersecting) {
-                    setTimeout(() => {
-                        entry.target.classList.add('visible');
-                    }, index * 100);
+                    entry.target.classList.add('visible');
                 }
             });
         }, observerOptions);
 
-        // Observe all animated elements
-        const animatedElements = document.querySelectorAll('.about-component .lead, .about-component .stat-card, .about-component .value-card');
-        animatedElements.forEach(element => {
-            element.style.opacity = '0';
-            element.style.transform = 'translateY(30px)';
-            element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        animatedElements.forEach((element) => {
             observer.observe(element);
         });
     }

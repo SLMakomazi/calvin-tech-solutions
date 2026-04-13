@@ -407,8 +407,35 @@ class ContactComponent {
         const infoCards = document.querySelectorAll('.contact-component .info-card');
         const contactForm = document.querySelector('.contact-component .contact-form');
         
-        infoCards.forEach(card => observer.observe(card));
-        if (contactForm) observer.observe(contactForm);
+        const allElements = [...infoCards];
+        if (contactForm) allElements.push(contactForm);
+        
+        if (allElements.length === 0) {
+            console.warn('No elements found to animate in Contact component');
+            return;
+        }
+        
+        allElements.forEach((element, index) => {
+            observer.observe(element);
+            
+            // Fallback: ensure elements become visible even if observer doesn't trigger
+            setTimeout(() => {
+                if (!element.classList.contains('visible')) {
+                    element.classList.add('visible');
+                }
+            }, 2000 + (index * 50));
+        });
+        
+        // Also ensure observer checks viewport on setup
+        setTimeout(() => {
+            allElements.forEach((element) => {
+                const rect = element.getBoundingClientRect();
+                const isInViewport = rect.top < window.innerHeight && rect.bottom > 0;
+                if (isInViewport && !element.classList.contains('visible')) {
+                    element.classList.add('visible');
+                }
+            });
+        }, 100);
     }
 
     // Public method to destroy contact component

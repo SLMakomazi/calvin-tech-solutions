@@ -195,12 +195,36 @@ class ServicesComponent {
 
         // Observe service cards
         const serviceCards = document.querySelectorAll('.services-component .service-card');
-        serviceCards.forEach(card => {
+        
+        if (serviceCards.length === 0) {
+            console.warn('No service cards found in Services component');
+            return;
+        }
+
+        serviceCards.forEach((card, index) => {
             card.style.opacity = '0';
             card.style.transform = 'translateY(30px)';
             card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
             observer.observe(card);
+            
+            // Fallback: ensure cards become visible even if observer doesn't trigger
+            setTimeout(() => {
+                if (!card.classList.contains('visible')) {
+                    card.classList.add('visible');
+                }
+            }, 2000 + (index * 50));
         });
+        
+        // Also ensure observer checks viewport on setup
+        setTimeout(() => {
+            serviceCards.forEach((card) => {
+                const rect = card.getBoundingClientRect();
+                const isInViewport = rect.top < window.innerHeight && rect.bottom > 0;
+                if (isInViewport && !card.classList.contains('visible')) {
+                    card.classList.add('visible');
+                }
+            });
+        }, 100);
     }
 
     // Setup service filters

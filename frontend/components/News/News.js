@@ -234,12 +234,31 @@ class NewsComponent {
         // Observe news cards for scroll animations
         const observeNewsCards = () => {
             const newsCards = document.querySelectorAll('.news-component .news-card:not(.visible)');
-            newsCards.forEach(card => {
+            newsCards.forEach((card, index) => {
                 observer.observe(card);
+                
+                // Fallback: ensure cards become visible even if observer doesn't trigger
+                setTimeout(() => {
+                    if (!card.classList.contains('visible')) {
+                        card.classList.add('visible');
+                    }
+                }, 2000 + (index * 50));
             });
         };
 
         observeNewsCards();
+        
+        // Also ensure observer checks viewport on setup
+        setTimeout(() => {
+            const newsCards = document.querySelectorAll('.news-component .news-card');
+            newsCards.forEach((card) => {
+                const rect = card.getBoundingClientRect();
+                const isInViewport = rect.top < window.innerHeight && rect.bottom > 0;
+                if (isInViewport && !card.classList.contains('visible')) {
+                    card.classList.add('visible');
+                }
+            });
+        }, 100);
 
         // Re-observe when new items are added
         const mutationObserver = new MutationObserver(() => {

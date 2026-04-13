@@ -220,8 +220,7 @@ class ProjectsComponent {
             entries.forEach((entry, index) => {
                 if (entry.isIntersecting) {
                     setTimeout(() => {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
+                        entry.target.classList.add('visible');
                     }, index * 100);
                 }
             });
@@ -229,12 +228,36 @@ class ProjectsComponent {
 
         // Observe project cards for scroll animations
         const projectCards = document.querySelectorAll('.projects-component .project-card');
-        projectCards.forEach(card => {
+        
+        if (projectCards.length === 0) {
+            console.warn('No project cards found in Projects component');
+            return;
+        }
+
+        projectCards.forEach((card, index) => {
             card.style.opacity = '0';
             card.style.transform = 'translateY(30px)';
             card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
             observer.observe(card);
+            
+            // Fallback: ensure cards become visible even if observer doesn't trigger
+            setTimeout(() => {
+                if (!card.classList.contains('visible')) {
+                    card.classList.add('visible');
+                }
+            }, 2000 + (index * 50));
         });
+        
+        // Also ensure observer checks viewport on setup
+        setTimeout(() => {
+            projectCards.forEach((card) => {
+                const rect = card.getBoundingClientRect();
+                const isInViewport = rect.top < window.innerHeight && rect.bottom > 0;
+                if (isInViewport && !card.classList.contains('visible')) {
+                    card.classList.add('visible');
+                }
+            });
+        }, 100);
     }
 
     // Add search functionality
