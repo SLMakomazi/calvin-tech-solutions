@@ -6,7 +6,6 @@
   "scripts": {
     "start": "live-server --port=3000 --open=/index.html",
     "dev": "live-server --port=3000 --open=/index.html --watch=.",
-//    "build": "echo 'Build process not configured yet'",
     "serve": "python -m http.server 8000",
     "test": "echo 'No tests specified yet'"
   },
