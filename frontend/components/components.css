@@ -94,6 +94,36 @@
     height: auto !important;
 }
 
+/* Force stat card specific changes */
+.about-component .stats-grid {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: var(--spacing-md) !important;
+}
+
+.about-component .stat-card {
+    padding: var(--spacing-md) !important;
+    min-height: 120px !important;
+}
+
+.about-component .stat-number {
+    font-size: 1.8rem !important;
+}
+
+/* Responsive stat card overrides */
+@media (max-width: 1024px) {
+    .about-component .stats-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+}
+
+@media (max-width: 640px) {
+    .about-component .stats-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: var(--spacing-sm) !important;
+    }
+}
+
 /* Component loading states */
 .component-loading {
     opacity: 0.6;
